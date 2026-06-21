@@ -1,0 +1,42 @@
+AACGM 12-18 MLT overlap screening for 2015-03-17
+
+Goal:
+- Focus on GUVI daytime-side coverage that overlaps SAPS-relevant dusk sector, especially 12-18 MLT.
+- Overlay GUVI and DMSP tracks when their times differ by <=2 hours.
+- Draw DMSP ion drift as arrows with length proportional to speed.
+
+Coordinate handling:
+- GUVI and DMSP geographic positions were converted with aacgmv2 2.7.1.
+- SSUSI background uses the product magnetic grid/MLT, plotted in the same polar MLT geometry.
+
+Top 12-18 MLT candidate windows using a 4-hour tolerance:
+01. center=19.25 UT, window=17.25-21.25 UT, GUVI n=614, median O/N2=0.332, min=0.117; DMSP westward n=570, p95=3.35, max=5.10 km/s, score=8.89
+02. center=19.50 UT, window=17.50-21.50 UT, GUVI n=614, median O/N2=0.332, min=0.117; DMSP westward n=570, p95=3.35, max=5.10 km/s, score=8.89
+03. center=19.00 UT, window=17.00-21.00 UT, GUVI n=613, median O/N2=0.332, min=0.117; DMSP westward n=570, p95=3.35, max=5.10 km/s, score=8.88
+04. center=19.75 UT, window=17.75-21.75 UT, GUVI n=465, median O/N2=0.330, min=0.117; DMSP westward n=568, p95=3.35, max=5.10 km/s, score=8.53
+05. center=18.50 UT, window=16.50-20.50 UT, GUVI n=386, median O/N2=0.320, min=0.117; DMSP westward n=570, p95=3.35, max=5.10 km/s, score=8.38
+06. center=18.75 UT, window=16.75-20.75 UT, GUVI n=386, median O/N2=0.320, min=0.117; DMSP westward n=570, p95=3.35, max=5.10 km/s, score=8.38
+07. center=18.25 UT, window=16.25-20.25 UT, GUVI n=386, median O/N2=0.320, min=0.117; DMSP westward n=570, p95=3.35, max=5.10 km/s, score=8.38
+08. center=18.00 UT, window=16.00-20.00 UT, GUVI n=488, median O/N2=0.322, min=0.117; DMSP westward n=1007, p95=2.95, max=5.10 km/s, score=8.21
+
+Selected SSUSI/SuperDARN overlap:
+- SSUSI file: dmspf17_ssusi_edr-aurora_2015076T195430-2015076T213621-REV43159_vA8.2.0r000.nc
+- Satellite/rev: F17 REV 43159
+- SSUSI 12-18 MLT valid UT: 20.961-21.114
+- SuperDARN quick-look: convection_maps_s_20150317_215800.png, selected panel 21.967-22.000 UT
+- SuperDARN track overlay window: 18.961-23.114 UT (SSUSI +/-2 h)
+- SuperDARN GUVI count in 12-18 MLT overlay: 669
+- SuperDARN DMSP count in 12-18 MLT overlay: 841
+
+- SuperDARN-overlaid GUVI: n=669, UT=19.211-22.615, AACGM MLAT=-67.8..-45.0, MLT=12.00..17.86
+  on2: median=0.332, p05=0.173, min=0.114
+- SuperDARN-overlaid DMSP: n=841, UT=19.268-19.502, AACGM MLAT=-80.0..-45.0, MLT=17.76..17.89
+  drift km/s: median=-0.08, |p95|=2.04, |max|=4.42
+- SSUSI-overlaid GUVI (<=2 h from SSUSI): n=669, UT=19.211-22.615, AACGM MLAT=-67.8..-45.0, MLT=12.00..17.86
+  on2: median=0.332, p05=0.173, min=0.114
+- SSUSI-overlaid DMSP: n=841, UT=19.268-19.502, AACGM MLAT=-80.0..-45.0, MLT=17.76..17.89
+  drift km/s: median=-0.08, |p95|=2.04, |max|=4.42
+
+Outputs:
+- SuperDARN base map overlay: superdarn_aacgm_guvi_dmsp_tracks_20150317_south_2158_panel_pm2h.png
+- DMSP-SSUSI base map overlay: dmsp_ssusi_aacgm_guvi_dmsp_velocity_20150317_south_f17_rev43159.png

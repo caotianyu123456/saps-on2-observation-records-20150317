@@ -1,0 +1,46 @@
+RBSP magnetospheric mapping/electric-field SAPS screening for 17 Mar 2015
+
+Definition used in this screening figure:
+- subauroral footpoint: centered-dipole |MLAT|=48-70 deg
+- SAPS-relevant MLT sector: 15-24 MLT
+- enhanced electric field marker: |E_spinfit_MGSE| >= 5.0 mV/m
+
+Electric-field statistics while mapped footpoints are in the selected regions:
+- RBSP-A N subauroral: n=1262, UT=0.02-23.07, median |E|=0.63, p95=4.74, max=16.11 mV/m, >=5 mV/m=62, >=10 mV/m=14
+- RBSP-A S subauroral: n=1204, UT=0.02-23.05, median |E|=0.62, p95=5.10, max=16.11 mV/m, >=5 mV/m=62, >=10 mV/m=14
+- RBSP-A N subauroral, 15-24 MLT: n=980, UT=0.02-20.90, median |E|=0.73, p95=5.56, max=16.11 mV/m, >=5 mV/m=62, >=10 mV/m=14
+- RBSP-A S subauroral, 15-24 MLT: n=931, UT=0.02-20.82, median |E|=0.69, p95=5.98, max=16.11 mV/m, >=5 mV/m=62, >=10 mV/m=14
+- RBSP-B N subauroral: n=1122, UT=1.15-23.98, median |E|=1.11, p95=7.88, max=15.50 mV/m, >=5 mV/m=128, >=10 mV/m=23
+- RBSP-B S subauroral: n=1119, UT=1.15-23.98, median |E|=1.14, p95=7.89, max=15.50 mV/m, >=5 mV/m=128, >=10 mV/m=23
+- RBSP-B N subauroral, 15-24 MLT: n=933, UT=2.90-23.98, median |E|=1.14, p95=8.07, max=15.50 mV/m, >=5 mV/m=90, >=10 mV/m=23
+- RBSP-B S subauroral, 15-24 MLT: n=946, UT=3.07-23.98, median |E|=1.08, p95=6.41, max=15.50 mV/m, >=5 mV/m=72, >=10 mV/m=20
+
+SAPS-candidate intervals: mapped footpoint in 15-24 MLT subauroral band and |E| >= 5 mV/m
+- RBSP-A #01: UT 8.88-8.88, n=1, median=16.11, p95=16.11, max=16.11 mV/m
+- RBSP-A #02: UT 19.97-20.33, n=23, median=9.53, p95=13.11, max=13.55 mV/m
+- RBSP-A #03: UT 8.62-8.65, n=3, median=10.47, p95=11.85, max=12.00 mV/m
+- RBSP-A #04: UT 11.18-11.23, n=4, median=6.36, p95=9.69, max=10.27 mV/m
+- RBSP-A #05: UT 8.93-8.97, n=3, median=5.79, p95=9.27, max=9.65 mV/m
+- RBSP-A #06: UT 17.62-17.65, n=3, median=6.55, p95=9.20, max=9.50 mV/m
+- RBSP-A #07: UT 17.02-17.03, n=2, median=7.38, p95=9.19, max=9.39 mV/m
+- RBSP-A #08: UT 15.73-15.87, n=9, median=7.13, p95=8.84, max=9.19 mV/m
+- RBSP-A #09: UT 16.62-16.67, n=4, median=5.36, p95=8.60, max=9.16 mV/m
+- RBSP-A #10: UT 11.52-11.57, n=4, median=6.89, p95=8.75, max=8.78 mV/m
+- RBSP-A #11: UT 17.57-17.57, n=1, median=7.48, p95=7.48, max=7.48 mV/m
+- RBSP-A #12: UT 8.27-8.27, n=1, median=7.39, p95=7.39, max=7.39 mV/m
+- RBSP-A: 7 additional shorter/lower-|E| intervals omitted
+- RBSP-B #01: UT 17.55-17.63, n=6, median=8.48, p95=14.68, max=15.50 mV/m
+- RBSP-B #02: UT 15.83-15.83, n=1, median=13.57, p95=13.57, max=13.57 mV/m
+- RBSP-B #03: UT 16.03-16.07, n=3, median=10.06, p95=12.49, max=12.76 mV/m
+- RBSP-B #04: UT 13.93-14.00, n=5, median=5.97, p95=11.67, max=12.55 mV/m
+- RBSP-B #05: UT 17.68-18.20, n=32, median=10.11, p95=11.43, max=11.58 mV/m
+- RBSP-B #06: UT 21.27-21.47, n=13, median=7.20, p95=8.60, max=9.28 mV/m
+- RBSP-B #07: UT 13.25-13.25, n=1, median=9.19, p95=9.19, max=9.19 mV/m
+- RBSP-B #08: UT 13.58-13.60, n=2, median=7.44, p95=8.96, max=9.13 mV/m
+- RBSP-B #09: UT 14.07-14.07, n=1, median=8.92, p95=8.92, max=8.92 mV/m
+- RBSP-B #10: UT 12.97-13.02, n=4, median=7.36, p95=8.19, max=8.31 mV/m
+- RBSP-B #11: UT 13.37-13.40, n=3, median=7.37, p95=7.94, max=8.01 mV/m
+- RBSP-B #12: UT 14.43-14.45, n=2, median=7.30, p95=7.76, max=7.81 mV/m
+- RBSP-B: 12 additional shorter/lower-|E| intervals omitted
+
+Caveat: This is a screening diagnostic based only on RBSP magnetospheric EFW and MagEphem footpoint mapping. It does not use ionospheric-satellite drift or GUVI data.

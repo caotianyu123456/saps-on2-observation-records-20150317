@@ -1,0 +1,11 @@
+Global raw-track overlay summary for 17 Mar 2015
+
+GUVI raw valid O/N2 points: n=12419, UT=0.89-22.62, O/N2 median=0.723, min=0.009, max=1.189
+Swarm A MAG orbit points plotted: n=4320, lat=-87.3 to 87.3, lon=-180.0 to 179.8
+Swarm B MAG orbit points plotted: n=4320, lat=-87.8 to 87.8, lon=-179.9 to 179.8
+Swarm C MAG orbit points plotted: n=4320, lat=-87.3 to 87.3, lon=-179.9 to 179.9
+DMSP F17: n=85431, |Vi| median=0.38, p95=1.73, max=5.46 km/s
+DMSP F18: n=75971, |Vi| median=0.32, p95=0.90, max=5.10 km/s
+THEMIS mapped ion speed points: n=8298, median=157.39, p95=490.23, max=549.18 km/s
+
+Caveats: GUVI is raw dayside O/N2 along TIMED/GUVI swaths. Swarm MAG gives orbit only here, not ion drift. THEMIS mapped tracks use approximate centered-dipole inverse mapping from GSM-derived footpoint latitude/MLT.

@@ -1,0 +1,15 @@
+Candidate GUVI/DMSP westward SAPS windows on 17 Mar 2015
+Positive DMSP SSIES horizontal ion drift is treated as westward.
+
+01. S MLT 12-24, UT window 22.50-2.50 (center 0.50), GUVI n=199, median O/N2=0.316, min=0.114; DMSP westward n=334, median=0.90, p95=4.03, max=4.84 km/s; score=2.949
+02. S MLT 12-24, UT window 21.00-1.00 (center 23.00), GUVI n=190, median O/N2=0.300, min=0.114; DMSP westward n=718, median=0.85, p95=3.86, max=4.84 km/s; score=2.940
+03. S MLT 12-24, UT window 21.25-1.25 (center 23.25), GUVI n=189, median O/N2=0.300, min=0.114; DMSP westward n=526, median=0.84, p95=3.82, max=4.84 km/s; score=2.920
+04. S MLT 12-24, UT window 20.75-0.75 (center 22.75), GUVI n=377, median O/N2=0.336, min=0.114; DMSP westward n=718, median=0.85, p95=3.86, max=4.84 km/s; score=2.789
+05. S MLT 12-24, UT window 19.50-23.50 (center 21.50), GUVI n=377, median O/N2=0.336, min=0.114; DMSP westward n=773, median=0.87, p95=3.82, max=4.84 km/s; score=2.770
+06. S MLT 12-24, UT window 19.75-23.75 (center 21.75), GUVI n=377, median O/N2=0.336, min=0.114; DMSP westward n=773, median=0.87, p95=3.82, max=4.84 km/s; score=2.770
+07. S MLT 12-24, UT window 20.00-0.00 (center 22.00), GUVI n=377, median O/N2=0.336, min=0.114; DMSP westward n=773, median=0.87, p95=3.82, max=4.84 km/s; score=2.770
+08. S MLT 12-24, UT window 21.50-1.50 (center 23.50), GUVI n=235, median O/N2=0.336, min=0.114; DMSP westward n=526, median=0.84, p95=3.82, max=4.84 km/s; score=2.770
+09. S MLT 12-24, UT window 20.25-0.25 (center 22.25), GUVI n=377, median O/N2=0.336, min=0.114; DMSP westward n=792, median=0.85, p95=3.81, max=4.84 km/s; score=2.765
+10. S MLT 12-24, UT window 20.50-0.50 (center 22.50), GUVI n=377, median O/N2=0.336, min=0.114; DMSP westward n=792, median=0.85, p95=3.81, max=4.84 km/s; score=2.765
+11. S MLT 12-24, UT window 21.75-1.75 (center 23.75), GUVI n=258, median O/N2=0.347, min=0.114; DMSP westward n=526, median=0.84, p95=3.82, max=4.84 km/s; score=2.726
+12. S MLT 12-24, UT window 22.00-2.00 (center 0.00), GUVI n=258, median O/N2=0.347, min=0.114; DMSP westward n=554, median=0.81, p95=3.80, max=4.84 km/s; score=2.721

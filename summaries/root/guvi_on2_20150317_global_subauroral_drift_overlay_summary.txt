@@ -1,0 +1,19 @@
+17 Mar 2015 GUVI O/N2 global subauroral drift-overlay summary
+
+GUVI observed/interpolated grid: finite cells=20402, median=0.563, min=0.000, max=1.112
+GUVI raw swath: n=12419, UT=0.89-22.62, median O/N2=0.723
+
+Subauroral bands use centered-dipole |MLAT|=48-70 deg.
+- GUVI raw O/N2 N: n=1477, UT=0.89-21.93, median=0.263, p95=0.676, max=0.88
+- GUVI raw O/N2 S: n=2046, UT=1.40-22.62, median=0.379, p95=0.707, max=0.891
+
+Drift-related overlays inside the subauroral bands:
+- DMSP SSIES |Vi| N: n=20959, UT=0.77-23.67, median=0.297, p95=1.98, max=5.46 km/s
+- DMSP SSIES |Vi| S: n=19250, UT=0.00-24.00, median=0.287, p95=2.09, max=5.1 km/s
+- RBSP mapped |E| N: n=2384, UT=0.02-23.98, median=0.841, p95=6.75, max=16.1 mV/m
+- RBSP mapped |E| S: n=2323, UT=0.02-23.98, median=0.85, p95=6.84, max=16.1 mV/m
+- THEMIS mapped ion |V| N: n=1326, UT=9.38-21.62, median=22.9, p95=149, max=421 km/s
+- THEMIS mapped ion |V| S: n=1326, UT=9.38-21.62, median=22.9, p95=149, max=421 km/s
+
+Swarm EFI/TIE drift is not included because no local Swarm drift CDF was found; local Swarm MAG files are orbit/magnetic-field tracks only.
+Caveat: CD-MLAT bands and THEMIS footpoints are screening-level centered-dipole approximations; RBSP footpoints use the local MagEphem files.

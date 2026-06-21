@@ -1,0 +1,29 @@
+DMSP/SSUSI + TIMED/GUVI overlay, 17 Mar 2015
+
+GeospaceLAB reference choices:
+- DMSP/SSUSI EDR-Aurora product
+- LBHS emission channel
+- log color scale with limits 10-6000 R
+- magnetic polar map in MLT/MLAT
+
+Downloaded target-orbit files:
+- F16 REV 58881: 21:17:31-22:59:22 UT, south valid UT 22.11-22.49, overlap-score pixels=1547, file=dmspf16_ssusi_edr-aurora_2015076T211731-2015076T225922-REV58881_vA8.2.0r000.nc
+- F17 REV 43160: 21:36:26-23:18:17 UT, south valid UT 22.42-22.79, overlap-score pixels=0, file=dmspf17_ssusi_edr-aurora_2015076T213626-2015076T231817-REV43160_vA8.2.0r000.nc
+- F18 REV 27904: 21:11:04-22:52:55 UT, south valid UT 22.01-22.41, overlap-score pixels=0, file=dmspf18_ssusi_edr-aurora_2015076T211104-2015076T225255-REV27904_vA8.2.0r000.nc
+
+Selected main panel:
+- F16 REV 58881; selected because it has the largest valid SSUSI south-hemisphere coverage in the GUVI MLT/MLAT sector.
+- File: dmspf16_ssusi_edr-aurora_2015076T211731-2015076T225922-REV58881_vA8.2.0r000.nc
+- SSUSI south valid UT range: 22.11-22.49.
+- SSUSI median valid-south-pixel time: 2015-03-17 22:16 UT.
+- Visible SSUSI pixels above 45 deg magnetic latitude: 23026
+
+GUVI overlay:
+- Points: 252 in 22.00-22.68 UT, MLAT -75 to -45, MLT 10.5-18.3.
+- Common-UT highlighted points: 100 within SSUSI valid UT 22.11-22.49.
+- GUVI UT range: 22.41-22.62.
+- GUVI MLAT range: -70.02 to -45.14; MLT range: 11.44-17.08.
+- GUVI O/N2 p05/median: 0.159/0.333.
+
+Caveat:
+- SSUSI MLAT/MLT come from the product grid; GUVI MLAT/MLT use the existing local centered-dipole screening transform, not AACGMV2.

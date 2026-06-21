@@ -1,0 +1,25 @@
+GeospaceLAB-style 17 Mar 2015 observation figure set
+
+Installed/used local helper packages from: C:\Users\Dell\Desktop\SAPS SAR arcs\.codex_deps
+Note: aacgmv2 could not be installed on this Windows Python because Microsoft C++ Build Tools are absent; centered-dipole MLT/MLAT is used for screening overlays.
+
+Outputs:
+- Event context: geospacelab_style_20150317_event_context.png
+- SuperDARN/GUVI/DMSP overlay: geospacelab_style_superdarn_guvi_dmsp_20150317_south.png
+
+OMNI HRO 1-min storm-day highlights:
+- Minimum SYM-H: -234 nT at 2015-03-17 22:47:00 UT
+- Minimum Bz GSM: -26.0 nT at 2015-03-17 13:07:00 UT
+- Maximum AE: 2298 nT at 2015-03-17 13:58:00 UT
+
+SuperDARN/GUVI/DMSP overlay interval:
+- Base SuperDARN quick-look URL: https://sdc-serv.usask.ca/convection_plots/2015/03/convection_maps_s_20150317_223800.png
+- Interval: 2015-03-17 22:30-22:40 UT, southern hemisphere, five 2-min panels.
+- GUVI points per panel: [40, 40, 40, 19, 0]
+- DMSP points per panel after polar-map filtering: [119, 120, 93, 0, 54]
+- GUVI overlaid: n=139, UT=22.500-22.615, CD-MLAT=-70.0..-61.8, CD-MLT=12.9..17.1, O/N2 median=0.254, min=0.114.
+- DMSP overlaid: n=386, drift median=-0.67 km/s, p95=0.79 km/s, max=1.86 km/s; positive is treated as westward.
+
+Interpretive note:
+The 22:30-22:40 UT southern SuperDARN quick-look shows a coherent dusk-side/subauroral convection channel while GUVI samples a depleted O/N2 track across CD-MLAT about -70 to -62 and CD-MLT about 13-17.
+Use this as a screening/publication-planning figure; for final publication, rerun the coordinate conversion with AACGM/Apex after installing the required compiled dependency.

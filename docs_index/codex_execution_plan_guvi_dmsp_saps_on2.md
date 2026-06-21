@@ -1,323 +1,486 @@
-# Codex Execution Plan: GUVI–DMSP–SuperDARN Screening for SAPS-Associated O/N2 Responses
+# Codex Execution Plan: Statistical GUVI–DMSP–SuperDARN Screening for SAPS-Associated O/N2 Responses
 
 Updated: 2026-06-21
 Target repository: `caotianyu123456/saps-on2-observation-records-20150317`
 
-## 0. Scientific objective
+## 0. Corrected project objective
 
-Build a reproducible screening pipeline to find events/windows where SAPS ion-drift channels and thermospheric composition observations overlap.
+This project is not only a 2015-03-17 case study. The real goal is to build a statistical or multi-case screening framework for finding events/windows where SAPS ion-drift channels overlap thermospheric O/N2 observations.
 
-Primary science question:
+The 2015-03-17 St. Patrick's Day storm should remain as the first validation case and publication-quality example, but the code and tables must be designed from the beginning for batch screening across many storm events and many satellite conjunction windows.
 
-> Do SAPS-associated subauroral ion-drift channels coincide with TIMED/GUVI O/N2 depletion or other O/N2 perturbations during geomagnetic storms?
+Primary statistical science question:
+
+> Across many geomagnetic storms, how often do SAPS-associated subauroral ion-drift channels coincide with TIMED/GUVI O/N2 depletion or O/N2 perturbations, and how does the O/N2 response depend on SAPS drift speed/channel strength, MLT, hemisphere, storm phase, and SuperDARN channel support?
 
 Primary observational pair:
 
-- SAPS channel: DMSP/SSIES horizontal ion drift, supplemented by SuperDARN convection when available.
-- Composition response: TIMED/GUVI L3 O/N2, preferably expressed as an anomaly relative to a suitable background.
+- SAPS channel: DMSP/SSIES horizontal ion drift, supplemented by SuperDARN convection/ion drift whenever available.
+- Composition response: TIMED/GUVI L3 O/N2, preferably expressed as an anomaly or inside/outside-channel contrast.
 
 Secondary/optional evidence:
 
-- SuperDARN line-of-sight or map-potential ion drift/convection to define a two-dimensional SAPS channel.
-- DMSP/SSUSI FUV dayglow/O/N2-sensitive ratios, if suitable SSUSI dayglow variables are available.
-- DMSP/SSUSI auroral LBHS for auroral boundary and particle-precipitation contamination context.
-- RBSP mapped electric field as supporting magnetospheric context, not as a standalone SAPS proof.
-
-The first deliverable should be a case-study-ready screening table and figures for 2015-03-17. The second deliverable should be a generalized event scanner that can be extended to multi-event statistics.
+- SuperDARN line-of-sight or map-potential ion drift/convection to define a two-dimensional SAPS channel. This is especially important for post-2020 events if subauroral flow coverage is better.
+- DMSP/SSUSI FUV dayglow/O/N2-sensitive ratios or formal SSUSI-derived O/N2 if suitable product variables are available.
+- DMSP/SSUSI auroral LBHS for auroral boundary and auroral-contamination context.
+- RBSP/THEMIS/Swarm or other magnetospheric/ionospheric context only as supporting evidence, not as the primary SAPS definition.
 
 ---
 
-## 1. Strategy decision
+## 1. Strategy: statistical-first, case-validated
 
-Do not choose between case study and statistics at the start. Implement the project as:
+Implement the project in three layers:
 
-1. A strong case study for 2015-03-17.
-2. A screening framework that is immediately expandable into statistics.
+### Layer A: 2015-03-17 smoke test and strong case
 
-The case-study manuscript should include a transparent candidate-window table, so the selected event/window does not look hand-picked.
+Use the known 2015-03-17 windows to validate parsing, coordinate conversion, DMSP/GUVI matching, scoring, and figures. This case should not hard-code the whole workflow; it is a unit test and a flagship example.
 
-Current best candidate from existing repository summaries:
+Known best validation window from existing summaries:
 
 - Southern hemisphere, AACGM 12–18 MLT, 2015-03-17, 17.25–21.25 UT, centered near 19.25 UT.
 - GUVI: n about 614, median O/N2 about 0.332, min about 0.117.
 - DMSP westward drift: n about 570, p95 about 3.35 km/s, max about 5.10 km/s.
 
-Secondary candidate:
+Secondary validation window:
 
 - Southern hemisphere, 12–24 MLT, roughly 21.0–02.5 UT.
 - GUVI median O/N2 about 0.30–0.35, min about 0.114.
 - DMSP westward p95 about 3.8–4.0 km/s, max about 4.84 km/s.
 
+### Layer B: batch GUVI–DMSP statistical scan
+
+After the 2015 validation passes, run the same algorithm on a broad event list. The unit of analysis should be an event/window, not a pixel. GUVI pixels are spatially correlated and affected by orbital selection; the statistical table should aggregate by candidate SAPS/O/N2 window.
+
+### Layer C: SuperDARN-assisted and SSUSI-assisted expansion
+
+Add SuperDARN-supported channel identification and optional SSUSI O/N2/proxy support. SuperDARN should not be treated as a minor add-on: it is the main way to overcome the one-dimensional nature of DMSP crossings and the different GUVI/DMSP viewing geometries.
+
 ---
 
-## 2. Core concept: define a SAPS channel, not a point conjunction
+## 2. Core concept: screen channel conjunctions, not point conjunctions
 
-Avoid requiring GUVI and DMSP to cross the exact same geographic point at the exact same time. Instead, define a time-dependent SAPS channel in magnetic coordinates:
+Do not require GUVI and DMSP to cross the exact same geographic point at the exact same time. Instead, define a time-dependent SAPS channel in magnetic coordinates:
 
 ```text
-C(t) = {hemisphere, MLAT_eq, MLAT_pole, MLT_min, MLT_max, UT_start, UT_end}
+C(t) = {event_id, hemisphere, MLAT_eq, MLAT_pole, MLT_min, MLT_max, UT_start, UT_end, source}
 ```
 
-DMSP/SSIES provides one-dimensional crossings through the SAPS channel. SuperDARN, when available, turns this into a more credible two-dimensional channel. GUVI points are then classified as inside-channel, poleward-control, or equatorward-control samples.
+DMSP/SSIES provides one-dimensional crossings through the SAPS channel. SuperDARN, when available, converts this into a more credible two-dimensional ion-drift/convection channel. GUVI points are then classified as:
 
-Recommended magnetic coordinate system:
+```text
+inside_channel
+poleward_control
+equatorward_control
+same_MLT_outside_channel
+quiet_or_reference_background, if available
+```
 
-- Use AACGMV2 or Apex consistently for publication-quality products.
-- Do not mix centered-dipole screening results with AACGM/Apex final figures unless clearly labelled.
+Recommended coordinate system:
+
+- Use AACGMV2 or Apex consistently for publication-quality statistics and figures.
+- Do not mix centered-dipole screening products with AACGM/Apex final claims unless explicitly labelled.
 
 ---
 
-## 3. Input data expected by the pipeline
+## 3. Statistical event universe
 
-### 3.1 DMSP/SSIES
+Codex should create an event-list builder rather than manually coding one storm.
 
-Required fields after parsing:
+### 3.1 Event families to include
+
+Create a configurable event list from one or more of the following sources:
+
+1. Major storms by SYM-H/Dst threshold.
+2. Moderate storms with strong SAPS probability.
+3. Days with DMSP/SSIES high-latitude passes and GUVI O/N2 availability.
+4. Days with SuperDARN subauroral convection coverage.
+5. Post-2020 events prioritized for SuperDARN-assisted screening.
+6. Optional: events where DMSP/SSUSI dayglow data are available for O/N2/proxy checks.
+
+Suggested thresholds for event-list construction:
 
 ```text
-time_utc, satellite, orbit_or_rev, lat_geo, lon_geo, alt_km,
+Major storm list: min(SYM-H or Dst) <= -100 nT
+Moderate storm list: min(SYM-H or Dst) <= -50 nT and AE/Kp elevated
+SAPS-focused list: DMSP/SuperDARN shows subauroral westward drift/flow >= 0.5 km/s
+GUVI-available list: valid GUVI O/N2 samples in |MLAT| 45–70 and MLT 12–24
+```
+
+The screening should not only keep positive matches. It must also save non-matches to quantify the selection function:
+
+```text
+storm_has_DMSP_SAPS_but_no_GUVI_overlap
+storm_has_GUVI_ON2_depletion_but_no_DMSP_SAPS_crossing
+storm_has_SuperDARN_channel_but_no_GUVI_overlap
+storm_has_no_valid_quality_data
+```
+
+### 3.2 Recommended batch periods
+
+Use the available local data first. Then design the code to expand to:
+
+```text
+GUVI era with DMSP SSIES overlap: event-date dependent
+DMSP F16/F17/F18 era: especially useful for same-platform SSIES + SSUSI context
+Post-2020 subset: prioritize SuperDARN-assisted channel detection
+2018 onward optional: consider GOLD + DMSP + SuperDARN as a future branch, but do not mix GOLD with GUVI statistics unless separated
+```
+
+Do not hard-code a final year range until the repository inventory confirms what data are locally present or downloadable.
+
+---
+
+## 4. Input data required by the pipeline
+
+### 4.1 DMSP/SSIES
+
+Required normalized fields:
+
+```text
+event_date, time_utc, satellite, orbit_or_rev,
+lat_geo, lon_geo, alt_km,
 aacgm_mlat, aacgm_mlt,
-horizontal_ion_drift_kms, westward_ion_drift_kms,
-ion_density, electron_density, quality_flags
+horizontal_ion_drift_kms,
+westward_ion_drift_kms,
+ion_density, electron_density,
+quality_flags
 ```
 
 Notes:
 
-- Existing repository convention: positive DMSP SSIES horizontal ion drift is treated as westward. Keep this convention unless raw metadata prove otherwise.
-- Convert all drift speeds to km/s in summary tables.
-- Store both signed drift and absolute drift.
+- Existing repository convention: positive DMSP SSIES horizontal ion drift is treated as westward. Preserve this convention unless raw metadata prove otherwise.
+- Convert all drift speeds to km/s.
+- Save both signed westward drift and absolute drift.
+- Require sustained intervals; do not define SAPS from single-point spikes.
 
-### 3.2 TIMED/GUVI O/N2
+### 4.2 TIMED/GUVI O/N2
 
-Required fields:
+Required normalized fields:
 
 ```text
-time_utc, orbit, lat_geo, lon_geo, sza, local_time,
-aacgm_mlat, aacgm_mlt, on2, quality_flags
+event_date, time_utc, orbit,
+lat_geo, lon_geo, sza, local_time,
+aacgm_mlat, aacgm_mlt,
+on2, on2_log, quality_flags,
+native_or_interpolated
 ```
 
-Use GUVI L3 O/N2 where possible. Preserve raw swath points. Gridded/interpolated products may be used for display, but statistics should preferably be computed from valid raw or native product samples.
+Rules:
 
-### 3.3 SuperDARN
+- Prefer native/raw valid GUVI samples for statistics.
+- Gridded/interpolated GUVI products may be used for display only unless clearly justified.
+- Save SZA/local-time metadata whenever available.
+- Compute O/N2 anomaly when possible.
+
+### 4.3 SuperDARN
 
 Two priority levels:
 
-Priority A: real SuperDARN map or fit files processed with RST/pyDARN.
-
-Priority B: quick-look convection maps for screening only.
-
-Required outputs if SuperDARN is used quantitatively:
-
 ```text
-time_utc, hemisphere, grid_or_map_id,
-aacgm_mlat, aacgm_mlt,
-los_velocity_or_convection_velocity_ms,
-flow_direction, fit_quality, radar_count_or_support_metric
+Priority A: SuperDARN map/fit/grid files processed reproducibly with RST/pyDARN.
+Priority B: quick-look convection maps for screening and figure planning only.
 ```
 
-Use SuperDARN to:
+Required normalized fields if quantitative SuperDARN is used:
 
-1. Confirm a dusk-side/subauroral westward flow channel.
-2. Extend DMSP point crossings into a two-dimensional channel.
-3. Provide an independent ion-convection constraint, especially for post-2020 events with improved subauroral coverage.
+```text
+event_date, time_utc, hemisphere,
+aacgm_mlat, aacgm_mlt,
+velocity_ms, flow_direction,
+radar_id_or_map_id,
+fit_quality, support_metric,
+quicklook_or_quantitative
+```
 
-### 3.4 DMSP/SSUSI optional products
+SuperDARN use cases:
 
-Use SSUSI first as auroral context, then as optional O/N2-sensitive support.
+1. Find subauroral westward flow channels independently of DMSP.
+2. Extend DMSP one-dimensional crossings into two-dimensional SAPS channel polygons/ribbons.
+3. Provide post-2020 event coverage where DMSP and GUVI do not exactly co-locate.
+4. Separate Grade B/C events into stronger SuperDARN-supported subsets.
+
+### 4.4 DMSP/SSUSI optional products
+
+Use SSUSI first for auroral context, then optionally for O/N2-sensitive support.
 
 Required auroral context fields:
 
 ```text
-time_utc, satellite, rev, hemisphere,
-mlat_grid, mlt_grid, lbhs_radiance, lbhl_radiance,
+event_date, time_utc, satellite, rev, hemisphere,
+mlat_grid, mlt_grid,
+lbhs_radiance, lbhl_radiance,
 auroral_boundary_or_precipitation_mask
 ```
 
-Optional O/N2-related fields, if available:
+Optional O/N2-related fields if available:
 
 ```text
 OI_1356_radiance, N2_LBHS_radiance, N2_LBHL_radiance,
 ON2_product_or_ratio, sza, look_angle, quality_flags
 ```
 
-If no formal SSUSI O/N2 product is available, compute only a screening proxy:
+If no formal SSUSI O/N2 product exists, compute only a screening proxy:
 
 ```text
 R_1356_LBHS = OI_1356_radiance / N2_LBHS_radiance
 ```
 
-Label it as an O/N2-sensitive FUV ratio, not as official O/N2.
+Label it as an O/N2-sensitive FUV ratio, not official O/N2.
 
 ---
 
-## 4. Event and window search logic
+## 5. Screening algorithms
 
-### 4.1 DMSP-first search
+### 5.1 DMSP-first SAPS channel search
 
 For each DMSP high-latitude pass:
 
-1. Convert trajectory to AACGM/Apex MLAT and MLT.
-2. Keep samples in subauroral candidate band:
-   - `45 <= |MLAT| <= 70` degrees.
-   - Primary MLT: 15–24 MLT.
-   - Expanded MLT for GUVI overlap: 12–24 MLT.
-3. Identify sustained westward drift intervals.
-4. Merge adjacent intervals separated by less than 2 minutes.
-5. Record candidate SAPS crossing if:
-   - weak threshold: p95 westward drift >= 0.5 km/s;
-   - main threshold: p95 westward drift >= 1.0 km/s;
-   - strong/SAID-like threshold: peak westward drift >= 2.0 km/s;
-   - very strong threshold: peak westward drift >= 3.0 km/s.
-6. Estimate channel center latitude and width:
-   - `MLAT_eq` and `MLAT_pole` from threshold crossing boundaries.
-   - `MLAT_center = 0.5 * (MLAT_eq + MLAT_pole)`.
-   - `width_deg = abs(MLAT_pole - MLAT_eq)`.
-
-Recommended default SAPS crossing requirements:
+1. Convert to AACGM/Apex MLAT/MLT.
+2. Keep subauroral candidates:
 
 ```text
-abs(MLAT) between 45 and 70 deg
-MLT between 12 and 24
-westward p95 >= 1.0 km/s OR westward max >= 2.0 km/s
+45 <= |MLAT| <= 70 deg
+Primary SAPS MLT: 15–24
+Expanded GUVI-overlap MLT: 12–24
+```
+
+3. Identify sustained westward drift intervals.
+4. Merge adjacent intervals separated by less than 2 minutes.
+5. Record a SAPS crossing if:
+
+```text
+weak threshold: p95 westward drift >= 0.5 km/s
+main threshold: p95 westward drift >= 1.0 km/s
+strong/SAID-like threshold: peak westward drift >= 2.0 km/s
+very strong threshold: peak westward drift >= 3.0 km/s
 minimum duration >= 60 s
 minimum latitudinal width >= 0.5 deg
 ```
 
-### 4.2 GUVI overlap search
-
-For each DMSP SAPS crossing, search GUVI samples in the same hemisphere and similar MLT sector.
-
-Search windows:
+6. Estimate channel boundaries:
 
 ```text
-Grade A: |Delta t| <= 1 h, |Delta MLT| <= 1 h
-Grade B: |Delta t| <= 2 h, |Delta MLT| <= 2 h, plus SuperDARN or SSUSI support
-Grade C: |Delta t| <= 4 h, |Delta MLT| <= 3 h, screening only
+MLAT_eq, MLAT_pole, MLAT_center, width_deg
+MLT_min, MLT_max or crossing_MLT_center
+UT_start, UT_end, UT_center
 ```
 
-A GUVI sample is inside the SAPS channel if:
+### 5.2 SuperDARN-first SAPS channel search
+
+For each event interval:
+
+1. Load available SuperDARN map/fit/grid data if present.
+2. Search for subauroral westward flow channels in:
 
 ```text
-same hemisphere
-MLAT between MLAT_eq - 1 deg and MLAT_pole + 1 deg
-MLT within channel MLT range +/- tolerance
-valid O/N2 and quality flags pass
-SZA/dayglow condition acceptable for O/N2 product
+45 <= |MLAT| <= 70 deg
+12 <= MLT <= 24, with focus on 15–24
+velocity threshold: >= 300, 500, and 1000 m/s tiers
 ```
 
-Define control regions:
+3. Define channel polygons/ribbons in AACGM coordinates.
+4. Search for DMSP crossings through or near the SuperDARN channel within +/- 1–2 h.
+5. Search for GUVI O/N2 samples inside the SuperDARN channel within +/- 1–4 h.
+6. Save SuperDARN-only candidates even if DMSP did not cross, but grade them separately.
+
+This algorithm is important for post-2020 expansion and for cases where DMSP does not happen to cross the strongest SAPS channel.
+
+### 5.3 GUVI-first O/N2 depletion search
+
+Use this to reduce SAPS-selection bias.
+
+For every GUVI O/N2 day/orbit:
+
+1. Search subauroral GUVI samples:
 
 ```text
-Equatorward control: 2–5 deg equatorward of SAPS channel, same MLT/time window.
-Poleward control: 2–5 deg poleward of SAPS channel, same MLT/time window, excluding strong auroral contamination if possible.
-Same-MLT storm control: same MLT sector outside channel.
-Quiet/reference control: quiet-day or multi-day median in the same MLAT/MLT/SZA bin, if available.
+45 <= |MLAT| <= 70 deg
+12 <= MLT <= 24
+valid O/N2 and quality flags
 ```
 
-Compute for inside and controls:
+2. Identify low-O/N2 patches using one or more criteria:
 
 ```text
-n, median_ON2, p05_ON2, p25_ON2, p75_ON2, min_ON2
-median_log_ON2, anomaly_log_ON2 if baseline exists
-inside_minus_equatorward_control
-inside_minus_poleward_control
+raw O/N2 below local percentile threshold, e.g., p20
+log(O/N2) anomaly below -1 sigma, if baseline exists
+inside-day sector median lower than controls
 ```
 
-### 4.3 SuperDARN-assisted search
+3. For each GUVI depletion patch, search DMSP SAPS crossings within +/- 1, 2, and 4 h.
+4. Add SuperDARN support if a channel is present.
+5. Keep both matches and non-matches.
 
-Use this path to avoid over-reliance on DMSP one-dimensional crossings.
+### 5.4 Combined candidate grading
 
-For each storm interval:
-
-1. Identify subauroral westward flow channel in SuperDARN maps or fit files.
-2. Define the channel in AACGM MLT/MLAT as a polygon or ribbon.
-3. Check whether DMSP crosses the same channel within +/- 1–2 hours.
-4. Check whether GUVI samples the channel or neighboring control regions within +/- 1–4 hours.
-5. Flag the event as SuperDARN-supported.
-
-For events after 2020, explicitly prioritize SuperDARN because expanded subauroral coverage may capture more SAPS ion drift channels.
-
-Suggested event families for later expansion:
+Use Grades A/B/C for statistical stratification:
 
 ```text
-2015-03-17 St. Patrick's Day storm: current primary event.
-2018 onward: consider GOLD + DMSP + SuperDARN in addition to GUVI.
-2020 onward: prioritize SuperDARN-supported SAPS channel selection.
+Grade A:
+  Strong DMSP or SuperDARN SAPS channel.
+  GUVI inside-channel O/N2 samples within <= 1 h.
+  Good GUVI quality and usable control regions.
+
+Grade B:
+  Strong SAPS channel.
+  GUVI inside-channel samples within <= 2 h.
+  Independent SuperDARN or SSUSI auroral-boundary support.
+
+Grade C:
+  Possible SAPS/O/N2 overlap within <= 4 h.
+  Useful for screening/statistical occurrence but not a strong causal case.
+
+Rejected:
+  Poor quality, no meaningful control, bad coordinate match, obvious auroral contamination, or no valid overlap.
 ```
-
-### 4.4 GUVI-first search
-
-This path is useful for reducing SAPS-selection bias in future statistics.
-
-1. Search GUVI subauroral O/N2 low-anomaly regions:
-   - `45 <= |MLAT| <= 70` degrees.
-   - `12 <= MLT <= 24`.
-   - O/N2 below local p20 or anomaly below -1 sigma.
-2. For each GUVI depletion patch, search DMSP/SSIES SAPS crossings within +/- 1, 2, and 4 hours.
-3. Add SuperDARN support when available.
-4. Save all candidates, including non-matches, for selection-function diagnostics.
 
 ---
 
-## 5. Candidate scoring
+## 6. O/N2 statistics and controls
 
-Create a score for ranking windows. The exact coefficients can be adjusted after inspecting the first results.
+Do not rely only on raw GUVI O/N2 values. For every candidate window compute:
 
-Suggested components:
+```text
+inside_channel_ON2
+poleward_control_ON2
+equatorward_control_ON2
+same_MLT_outside_channel_ON2
+quiet_or_reference_ON2, if possible
+```
+
+For each region compute:
+
+```text
+n
+median_ON2
+p05_ON2
+p25_ON2
+p75_ON2
+min_ON2
+median_log_ON2
+anomaly_log_ON2 if baseline exists
+inside_minus_equatorward
+inside_minus_poleward
+inside_minus_same_MLT_outside
+```
+
+Baseline hierarchy:
+
+1. Best: quiet-day or multi-day median matched in MLAT/MLT/SZA/local time.
+2. Good: same storm, same MLT, outside SAPS channel.
+3. Screening fallback: raw ON2 and inside/outside contrast only.
+
+Save the baseline method in every row.
+
+---
+
+## 7. Candidate scoring
+
+Create a score for ranking windows. Use this score for selection, but preserve all raw components for later sensitivity tests.
 
 ```text
 S_total = S_drift + S_on2 + S_time + S_mlt + S_lat + S_support - S_contamination
 ```
 
-Definitions:
+Suggested definitions:
 
 ```text
 S_drift = min(DMSP_westward_p95_kms / 1.0, 3.0)
 S_on2 = max(0, -ON2_anomaly_zscore) if anomaly exists
-       or max(0, (0.5 - median_ON2) / 0.1) as screening fallback
+       or max(0, (0.5 - median_ON2_inside) / 0.1) as screening fallback
 S_time = exp(-abs(delta_t_hours) / 2.0)
 S_mlt = exp(-abs(delta_mlt_hours) / 1.5)
 S_lat = exp(-distance_to_channel_center_deg / 2.0)
-S_support = 0 to 3 points
-  +1 for SuperDARN channel support
+S_support = 0 to 4 points
+  +1 for quantitative SuperDARN channel support
+  +0.5 for quick-look SuperDARN support
   +1 for SSUSI auroral-boundary context
-  +1 for RBSP mapped E-field support
+  +1 for SSUSI O/N2 or O/N2-sensitive ratio support
+  +0.5 for RBSP/magnetospheric E-field support
 S_contamination = 0 to 3 points
-  +1 to +3 penalty for strong auroral precipitation contamination, poor GUVI quality, high SZA problems, or inconsistent coordinates
-```
-
-Required output rank:
-
-```text
-Grade A: strong DMSP/SuperDARN SAPS, GUVI inside channel within 1 h, good O/N2 quality.
-Grade B: strong SAPS, GUVI within 2 h, independent SuperDARN/SSUSI support.
-Grade C: possible SAPS/O/N2 overlap within 4 h; screening only.
-Rejected: poor coordinate match, poor quality, no meaningful control region, or obvious auroral contamination.
+  penalty for auroral contamination, poor GUVI quality, bad SZA, or inconsistent coordinates
 ```
 
 ---
 
-## 6. Required outputs
+## 8. Required outputs
 
-### 6.1 Tables
+### 8.1 Repository inventory
 
-Create these files under `data_samples/screening_outputs/`:
+Create or update:
 
-1. `candidate_windows_20150317.csv`
-2. `candidate_windows_all_events.csv` once generalized
-3. `dmsp_saps_crossings_20150317.csv`
-4. `guvi_channel_on2_stats_20150317.csv`
-5. `superdarn_channel_support_20150317.csv` if SuperDARN data are processed
-6. `ssusi_on2_or_ratio_support_20150317.csv` if SSUSI O/N2 or proxy is attempted
+```text
+docs_index/current_repository_inventory.md
+```
+
+It should list available GUVI, DMSP SSIES, SuperDARN, SSUSI, RBSP, THEMIS, Swarm, scripts, figures, and sample tables.
+
+### 8.2 Batch event table
+
+Create:
+
+```text
+data_samples/screening_outputs/event_universe.csv
+data_samples/screening_outputs/event_data_availability.csv
+```
+
+Minimum columns for `event_universe.csv`:
+
+```text
+event_id
+event_date
+storm_start_ut
+storm_end_ut
+min_symh_or_dst
+time_min_symh_or_dst
+max_ae_or_kp
+storm_phase_tags
+has_guvi
+has_dmsp_ssies
+has_superdarn
+has_ssusi
+has_gold_future_branch
+priority_level
+notes
+```
+
+Minimum columns for `event_data_availability.csv`:
+
+```text
+event_id
+event_date
+guvi_valid_sample_count_subauroral_12_24
+dmsp_pass_count_subauroral_12_24
+dmsp_saps_crossing_count
+superdarn_channel_candidate_count
+ssusi_file_count
+ssusi_on2_or_proxy_possible
+missing_data_reason
+```
+
+### 8.3 Candidate-window tables
+
+Create:
+
+```text
+data_samples/screening_outputs/candidate_windows_20150317.csv
+data_samples/screening_outputs/candidate_windows_all_events.csv
+data_samples/screening_outputs/dmsp_saps_crossings_all_events.csv
+data_samples/screening_outputs/guvi_on2_patches_all_events.csv
+data_samples/screening_outputs/superdarn_channels_all_events.csv
+data_samples/screening_outputs/ssusi_on2_or_ratio_support_all_events.csv
+```
 
 Minimum candidate-window columns:
 
 ```text
+event_id
 event_date
 hemisphere
 window_start_ut
 window_end_ut
 center_ut
-source_priority
+source_pathway
 candidate_grade
 score_total
 score_drift
@@ -340,6 +503,10 @@ dmsp_n
 dmsp_westward_median_kms
 dmsp_westward_p95_kms
 dmsp_westward_max_kms
+superdarn_support_flag
+superdarn_support_type
+superdarn_velocity_p95_ms
+superdarn_velocity_max_ms
 guvi_n_inside
 guvi_on2_median_inside
 guvi_on2_p05_inside
@@ -351,186 +518,18 @@ guvi_n_poleward_control
 guvi_on2_median_poleward_control
 inside_minus_equatorward
 inside_minus_poleward
-superdarn_support_flag
+baseline_method
 ssusi_support_flag
+ssusi_support_type
 rbsp_support_flag
 main_caveat
-recommended_for_figure
+recommended_for_case_study
+recommended_for_statistics
 ```
 
-### 6.2 Figures
+### 8.4 Figures
 
-Create figures under `figures/screening_outputs/`:
-
-1. `fig_20150317_primary_aacgm_12_18_guvi_dmsp.png`
-   - Polar MLT/MLAT map.
-   - GUVI O/N2 points colored by O/N2 or anomaly.
-   - DMSP track and westward drift arrows.
-   - SAPS channel ribbon.
-   - Inside/equatorward/poleward control bands.
-
-2. `fig_20150317_primary_timeseries.png`
-   - DMSP westward drift vs UT.
-   - GUVI O/N2 samples in channel vs UT or along-track coordinate.
-   - Mark selected candidate window.
-
-3. `fig_20150317_superdarn_supported_channel.png`
-   - SuperDARN flow/convection background if available.
-   - GUVI and DMSP overlaid.
-   - Label as publication-quality only if produced from proper map/fit files, not quick-look images.
-
-4. `fig_20150317_inside_outside_on2_boxplot.png`
-   - O/N2 inside channel vs equatorward/poleward controls.
-   - Use raw O/N2 and, if available, anomaly.
-
-5. Optional: `fig_20150317_ssusi_on2_ratio_support.png`
-   - SSUSI O/N2 product or OI1356/LBHS proxy.
-   - DMSP SSIES track/drift overlaid.
-
-### 6.3 Summary reports
-
-Create markdown summaries under `summaries/screening_outputs/`:
-
-1. `screening_summary_20150317.md`
-2. `primary_case_summary_20150317.md`
-3. `limitations_and_quality_control.md`
-
-Each summary must state:
-
-- Coordinate system used.
-- Time tolerance used.
-- Whether GUVI points are raw/native or interpolated.
-- Whether SuperDARN is quick-look or quantitatively processed.
-- Whether SSUSI result is official O/N2 or only a FUV ratio proxy.
-- Why the selected window is Grade A/B/C.
-- What evidence supports coincidence and what does not prove causality.
-
----
-
-## 7. Quality control rules
-
-### 7.1 Coordinate consistency
-
-- All final statistics and figures should use AACGMV2 or Apex.
-- Centered-dipole results may remain in legacy screening summaries but should not be used for final quantitative claims.
-- Store coordinate system metadata in every CSV and figure caption.
-
-### 7.2 GUVI O/N2 quality
-
-- Exclude invalid O/N2 values and bad-quality flags.
-- Record SZA and local time where available.
-- Prefer dayglow-valid observations.
-- Avoid interpreting raw O/N2 alone; compute anomaly when possible.
-- If anomaly is not yet available, explicitly call the result screening-level.
-
-### 7.3 DMSP drift quality
-
-- Remove obvious spikes and flagged bad samples.
-- Require sustained drift intervals rather than isolated single-point maxima.
-- Preserve both signed westward drift and absolute drift.
-- Check whether large drift occurs in subauroral region and not inside obvious auroral precipitation core.
-
-### 7.4 SuperDARN quality
-
-- Quick-look maps may be used only for screening and visual context.
-- Publication-level statistics should use map/fit files and reproducible processing.
-- Include radar coverage/support metrics when possible.
-
-### 7.5 SSUSI O/N2/proxy quality
-
-- Do not call `OI1356/LBHS` an official O/N2 product unless a validated retrieval is implemented or a product variable exists.
-- Mask or flag strong auroral precipitation regions.
-- Use SSUSI first as supporting evidence, not as the primary O/N2 result.
-
----
-
-## 8. Immediate Codex task list
-
-### Task 1: Repository inventory
-
-Inspect current repository directories and file names. Create or update an inventory file:
-
-```text
-docs_index/current_repository_inventory.md
-```
-
-The inventory should list available:
-
-- GUVI files and summaries.
-- DMSP SSIES parsed files and summaries.
-- SuperDARN quick-look or map-related files.
-- SSUSI files and summaries.
-- RBSP/THEMIS/Swarm support files.
-- Existing scripts that can be reused.
-
-### Task 2: Implement a unified candidate-window table for 2015-03-17
-
-Create a script:
-
-```text
-scripts/screen_guvi_dmsp_saps_on2_candidates.py
-```
-
-The script should:
-
-1. Load parsed DMSP SSIES and GUVI O/N2 samples if available locally.
-2. Convert/verify AACGM or Apex coordinates.
-3. Find DMSP SAPS crossings.
-4. Search GUVI overlap points for Grade A/B/C windows.
-5. Compute inside/control O/N2 statistics.
-6. Write `data_samples/screening_outputs/candidate_windows_20150317.csv`.
-7. Write `summaries/screening_outputs/screening_summary_20150317.md`.
-
-### Task 3: Reproduce the current best 2015-03-17 window
-
-The script must reproduce or explain differences from the existing best window:
-
-```text
-hemisphere: S
-MLT: 12–18
-window: 17.25–21.25 UT
-GUVI median O/N2: about 0.332
-DMSP westward p95: about 3.35 km/s
-DMSP westward max: about 5.10 km/s
-```
-
-If exact reproduction is impossible because raw large files are absent, write a clear note in the summary and use available sample tables/summaries as fixtures.
-
-### Task 4: Add SuperDARN-assisted channel support
-
-Create a script or module:
-
-```text
-scripts/add_superdarn_channel_support.py
-```
-
-This should:
-
-1. Detect available SuperDARN files or quick-look references.
-2. If only quick-look exists, mark support as screening-only.
-3. If map/fit files exist, compute quantitative channel support.
-4. Add `superdarn_support_flag`, `superdarn_time_range`, and `superdarn_caveat` to the candidate table.
-
-### Task 5: Add optional SSUSI O/N2 or FUV-ratio support
-
-Create a script or module:
-
-```text
-scripts/add_ssusi_on2_or_ratio_support.py
-```
-
-This should:
-
-1. Inspect SSUSI files for formal O/N2 variables.
-2. If unavailable, inspect for OI 135.6 and N2 LBHS/LBHL radiance variables.
-3. Compute only a proxy ratio if a formal product is absent.
-4. Flag auroral contamination using LBHS intensity or existing auroral-boundary information.
-5. Write `data_samples/screening_outputs/ssusi_on2_or_ratio_support_20150317.csv`.
-6. State clearly whether this is official O/N2 or a screening proxy.
-
-### Task 6: Generate publication-planning figures
-
-Create or update plotting scripts to generate:
+For 2015 validation:
 
 ```text
 figures/screening_outputs/fig_20150317_primary_aacgm_12_18_guvi_dmsp.png
@@ -540,57 +539,178 @@ figures/screening_outputs/fig_20150317_superdarn_supported_channel.png
 figures/screening_outputs/fig_20150317_ssusi_on2_ratio_support.png
 ```
 
-Each figure should have a caption saved in a parallel `.md` file.
-
-### Task 7: Generalize to multi-event search
-
-After the 2015-03-17 event is reproducible, implement:
+For statistics:
 
 ```text
+figures/screening_outputs/stat_occurrence_by_mlt.png
+figures/screening_outputs/stat_occurrence_by_hemisphere.png
+figures/screening_outputs/stat_on2_response_vs_dmsp_drift.png
+figures/screening_outputs/stat_on2_response_vs_superdarn_velocity.png
+figures/screening_outputs/stat_grade_distribution.png
+figures/screening_outputs/stat_selection_function_data_availability.png
+```
+
+Each figure must have a parallel `.md` caption file explaining data source, coordinate system, time tolerance, and caveat.
+
+### 8.5 Summary reports
+
+Create:
+
+```text
+summaries/screening_outputs/screening_summary_20150317.md
+summaries/screening_outputs/batch_screening_summary_all_events.md
+summaries/screening_outputs/statistical_findings_preliminary.md
+summaries/screening_outputs/limitations_and_selection_function.md
+```
+
+---
+
+## 9. Scripts to implement
+
+### 9.1 Inventory and event selection
+
+```text
+scripts/build_event_universe.py
+scripts/inventory_repository_data.py
+```
+
+`build_event_universe.py` should construct or update `event_universe.csv` from locally available files and configurable storm-date lists.
+
+### 9.2 Core screening
+
+```text
+scripts/screen_guvi_dmsp_saps_on2_candidates.py
 scripts/batch_screen_guvi_dmsp_saps_on2_events.py
 ```
 
-The batch scanner should accept a list of storm dates and output:
+`screen_guvi_dmsp_saps_on2_candidates.py` should run a single-event screen.
+
+`batch_screen_guvi_dmsp_saps_on2_events.py` should loop over all events and write `candidate_windows_all_events.csv`.
+
+### 9.3 SuperDARN support
 
 ```text
-data_samples/screening_outputs/candidate_windows_all_events.csv
-summaries/screening_outputs/batch_screening_summary.md
+scripts/add_superdarn_channel_support.py
+scripts/screen_superdarn_saps_channels.py
 ```
 
-Prioritize:
+The code must distinguish:
 
-1. Major storms with DMSP SSIES + GUVI availability.
-2. Events after 2020 with useful SuperDARN subauroral coverage.
-3. Events where optional SSUSI O/N2/proxy can be attempted.
+```text
+quantitative_from_map_or_fit_files
+screening_only_from_quicklook
+not_available
+```
+
+### 9.4 SSUSI support
+
+```text
+scripts/add_ssusi_on2_or_ratio_support.py
+scripts/inspect_ssusi_on2_variables.py
+```
+
+The code must distinguish:
+
+```text
+official_or_validated_ON2_product
+OI1356_LBHS_proxy_only
+auroral_context_only
+not_available
+```
+
+### 9.5 Plotting/statistics
+
+```text
+scripts/plot_primary_case_20150317.py
+scripts/plot_batch_statistics.py
+scripts/summarize_selection_function.py
+```
 
 ---
 
-## 9. Acceptance criteria
+## 10. Immediate Codex task list
+
+### Task 1: Convert the project to statistical-first structure
+
+Update directory outputs so that single-event and all-event outputs are both supported.
+
+### Task 2: Build repository inventory and event availability table
+
+Create:
+
+```text
+docs_index/current_repository_inventory.md
+data_samples/screening_outputs/event_data_availability.csv
+```
+
+### Task 3: Validate with 2015-03-17
+
+Reproduce or explain differences from the known best 2015-03-17 AACGM 12–18 MLT window.
+
+### Task 4: Implement batch GUVI–DMSP scan
+
+Run the same logic across all available event dates, not only 2015-03-17.
+
+### Task 5: Add SuperDARN-first and SuperDARN-assisted modes
+
+Use SuperDARN to define or support SAPS channels, especially for post-2020 events.
+
+### Task 6: Add optional SSUSI O/N2/proxy mode
+
+Attempt SSUSI only after the main GUVI–DMSP statistical table works.
+
+### Task 7: Generate preliminary statistical figures
+
+At minimum:
+
+```text
+occurrence by MLT
+occurrence by hemisphere
+O/N2 response vs DMSP drift
+O/N2 response vs SuperDARN velocity, if available
+Grade A/B/C distribution
+selection-function/data-availability summary
+```
+
+---
+
+## 11. Acceptance criteria
 
 The implementation is acceptable when:
 
-1. The current best 2015-03-17 candidate can be reproduced or transparently explained from available files.
-2. Every candidate window has a grade, score, and caveat.
-3. GUVI statistics distinguish inside-channel and control regions.
-4. DMSP SAPS crossings are identified from sustained westward drift, not isolated spikes.
-5. SuperDARN support is labelled as either quantitative or screening-only.
-6. SSUSI support is labelled as official O/N2 or proxy ratio.
-7. The pipeline can be run again on another date with minimal code changes.
-8. The final summary clearly separates observational coincidence from causal interpretation.
+1. The 2015-03-17 candidate is reproduced or transparently explained.
+2. The code produces an `event_universe.csv` and `event_data_availability.csv`.
+3. The code produces `candidate_windows_all_events.csv`, not only the 2015 table.
+4. Candidate windows include grade, score, caveat, source pathway, and data-availability flags.
+5. GUVI statistics distinguish inside-channel and control regions.
+6. DMSP SAPS crossings are identified from sustained westward drift intervals, not isolated spikes.
+7. SuperDARN support is labelled as quantitative, quick-look screening, or unavailable.
+8. SSUSI support is labelled as official O/N2, proxy ratio, auroral context only, or unavailable.
+9. The batch statistics explicitly report non-matches and data-availability limits.
+10. Final summaries clearly separate observational coincidence, statistical association, and causal interpretation.
 
 ---
 
-## 10. Recommended manuscript framing
+## 12. Recommended manuscript framing
 
-Recommended title concept:
+Primary manuscript concept:
 
-> A coordinated case study and screening framework for SAPS-associated thermospheric O/N2 depletion observed by TIMED/GUVI during the 17 March 2015 storm
+> Statistical screening of SAPS-associated thermospheric O/N2 responses using DMSP ion drifts, TIMED/GUVI O/N2, and SuperDARN convection channels
 
-Recommended claim level:
+Role of 2015-03-17:
 
-- Strong: SAPS-associated DMSP westward ion drift channels and GUVI O/N2 depletion show candidate spatial-temporal overlap in the southern day-dusk subauroral sector during 2015-03-17.
-- Strong: The best overlap window can be ranked using reproducible criteria and supported by SuperDARN/SSUSI context where available.
-- Moderate: The observations are consistent with SAPS-related thermospheric composition perturbations.
-- Avoid as a pure observational claim: SAPS directly caused the O/N2 depletion.
+- A validation/flagship case.
+- A detailed example showing how the automated screening identifies a strong SAPS/O/N2 overlap.
+- Not the sole objective of the project.
 
-Mechanism should be discussed with model support, e.g., SAPS-driven Joule/frictional heating, neutral upwelling/downwelling, and composition redistribution.
+Claim hierarchy:
+
+- Strong: A reproducible multi-event screening framework identifies SAPS/O/N2 conjunction candidates and quantifies the selection function.
+- Strong: DMSP/SuperDARN-defined SAPS channels can be compared with GUVI O/N2 inside/outside-channel statistics.
+- Moderate: O/N2 depletion or perturbation occurrence can be stratified by SAPS drift speed, MLT, hemisphere, storm phase, and SuperDARN support.
+- Avoid without model support: SAPS directly caused every observed O/N2 depletion.
+
+Future branch:
+
+- Add GOLD for 2018 onward as a separate analysis branch.
+- Add SSUSI-derived O/N2 or O/N2-sensitive proxy as an independent DMSP-platform check when feasible.

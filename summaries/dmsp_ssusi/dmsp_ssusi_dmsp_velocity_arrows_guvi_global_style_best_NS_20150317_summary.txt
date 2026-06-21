@@ -1,0 +1,30 @@
+DMSP/SSUSI + DMSP SSIES drift + TIMED/GUVI overlay, 17 Mar 2015
+
+Main figure:
+- dmsp_ssusi_dmsp_velocity_arrows_guvi_global_style_best_NS_20150317.png
+
+Single-panel figures:
+- dmsp_ssusi_dmsp_velocity_arrows_guvi_global_style_best_north_20150317.png
+- dmsp_ssusi_dmsp_velocity_arrows_guvi_global_style_best_south_20150317.png
+
+Plot choices:
+- SSUSI background: EDR-Aurora LBHS, GeospaceLAB default aurora colormap, log scale 10-6000 R.
+- DMSP track: same satellite as SSUSI, drawn in purple following the style in DMSP_vi.m.
+- DMSP drift: SSIES horizontal ion drift is projected into arrows approximately perpendicular to the track; arrow length scales with km/s.
+- GUVI overlay: TIMED/GUVI O/N2 track in the same hemisphere and near the SSUSI valid-UT window.
+- GUVI color: viridis with limits 0-1.1, matching the earlier GUVI global map style.
+
+Selected panels:
+- North: F17 REV 43159, file=dmspf17_ssusi_edr-aurora_2015076T195430-2015076T213621-REV43159_vA8.2.0r000.nc
+  SSUSI valid UT 19.94-21.61; pixels=15067; score=757.8
+  DMSP points=2154, UT 19.88-21.76, |drift| p95/max=2.51/5.10 km/s
+  GUVI points=194, UT 20.26-21.95, O/N2 p05=0.056
+  Coastlines added=True
+- South: F17 REV 43160, file=dmspf17_ssusi_edr-aurora_2015076T213626-2015076T231817-REV43160_vA8.2.0r000.nc
+  SSUSI valid UT 22.42-22.79; pixels=15611; score=767.9
+  DMSP points=1504, UT 22.41-22.83, |drift| p95/max=2.94/4.84 km/s
+  GUVI points=252, UT 22.41-22.62, O/N2 p05=0.159
+  Coastlines added=True
+
+Caveat:
+- SSUSI MLAT/MLT are product-grid coordinates; DMSP/GUVI MLAT/MLT use the local centered-dipole transform rather than AACGMV2.

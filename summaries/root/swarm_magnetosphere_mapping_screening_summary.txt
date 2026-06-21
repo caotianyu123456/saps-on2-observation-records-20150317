@@ -1,0 +1,25 @@
+Screening summary for 17 Mar 2015
+
+GUVI O/N2 sector medians, centered-dipole coordinates:
+- N MLT 12-18: n16=0, n17=0, med16=nan, med17=nan, delta=nan
+- N MLT 18-24: n16=0, n17=0, med16=nan, med17=nan, delta=nan
+- S MLT 12-18: n16=1064, n17=800, med16=0.541, med17=0.344, delta=-0.196
+- S MLT 18-24: n16=0, n17=0, med16=nan, med17=nan, delta=nan
+
+Mapped/low-orbit flow or electric-field diagnostics:
+- DMSP |Vi| N MLT 12-18: n=6902, UT=0.86-23.39, MLT=13.57-18.00, median=0.32, p95=1.66, max=5.10 km/s
+- RBSP mapped |E| N MLT 12-18: n=100, UT=2.90-21.55, MLT=16.23-18.00, median=2.11, p95=7.26, max=9.28 mV/m
+- THEMIS mapped |Vi| N MLT 12-18: n=848, UT=9.38-21.62, MLT=12.00-18.00, median=37.83, p95=162.79, max=421.11 km/s
+- DMSP |Vi| N MLT 18-24: n=3386, UT=0.77-22.96, MLT=18.00-19.56, median=0.32, p95=1.85, max=5.46 km/s
+- RBSP mapped |E| N MLT 18-24: n=1814, UT=0.02-23.98, MLT=18.00-24.00, median=0.91, p95=6.85, max=16.11 mV/m
+- THEMIS mapped |Vi| N MLT 18-24: n=255, UT=11.72-16.97, MLT=18.00-20.81, median=10.25, p95=29.56, max=47.68 km/s
+- DMSP |Vi| S MLT 12-18: n=517, UT=15.98-17.76, MLT=17.87-17.96, median=0.84, p95=2.05, max=4.27 km/s
+- RBSP mapped |E| S MLT 12-18: n=81, UT=3.07-21.33, MLT=15.95-18.00, median=1.60, p95=5.21, max=8.02 mV/m
+- THEMIS mapped |Vi| S MLT 12-18: n=848, UT=9.38-21.62, MLT=12.00-18.00, median=37.83, p95=162.79, max=421.11 km/s
+- DMSP |Vi| S MLT 18-24: n=9243, UT=0.20-24.00, MLT=18.03-23.72, median=0.30, p95=1.76, max=5.10 km/s
+- RBSP mapped |E| S MLT 18-24: n=1796, UT=0.02-23.98, MLT=18.01-24.00, median=0.90, p95=6.31, max=16.11 mV/m
+- THEMIS mapped |Vi| S MLT 18-24: n=255, UT=11.72-16.97, MLT=18.00-20.81, median=10.25, p95=29.56, max=47.68 km/s
+
+Swarm note: no local Swarm EFI/TCT02/TIE ion-drift CDF was found. VirES lists the needed EFI/TIE variables, but data download requires a VirES token/account, so this branch is currently blocked.
+
+Caveat: GUVI and DMSP coordinates use a centered-dipole screening conversion; THEMIS mapping is an approximate dipole conjugate-footpoint estimate; RBSP uses MagEphem footpoints.

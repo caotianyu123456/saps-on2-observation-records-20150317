@@ -15,7 +15,7 @@ Primary statistical science question:
 
 Primary observational pair:
 
-- SAPS channel: DMSP/SSIES horizontal ion drift, supplemented by SuperDARN convection/ion drift whenever available.
+- SAPS channel: DMSP/SSIES horizontal ion drift, supplemented by SuperDARN convection when available.
 - Composition response: TIMED/GUVI L3 O/N2, preferably expressed as an anomaly or inside/outside-channel contrast.
 
 Secondary/optional evidence:
@@ -111,7 +111,7 @@ The screening should not only keep positive matches. It must also save non-match
 ```text
 storm_has_DMSP_SAPS_but_no_GUVI_overlap
 storm_has_GUVI_ON2_depletion_but_no_DMSP_SAPS_crossing
-storm_has_SuperDARN_channel_but_no_GUVI_overlap
+storm_has_SuperDARN_channel_but_no_DMSP_or_GUVI_overlap
 storm_has_no_valid_quality_data
 ```
 

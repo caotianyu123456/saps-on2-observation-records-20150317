@@ -1,0 +1,12 @@
+Global geographic overlay summary for 17 Mar 2015
+
+DMSP F17: n=34939, UT=0.35-23.75, |Vi| median=0.36, p95=2.22, max=5.46 km/s
+DMSP F18: n=29227, UT=0.00-23.89, |Vi| median=0.26, p95=1.16, max=5.10 km/s
+
+RBSP N footpoints: n=2553, UT=0.02-23.98, |E| median=0.82, p95=6.52, max=16.11 mV/m
+RBSP S footpoints: n=2153, UT=1.15-23.10, |E| median=1.08, p95=7.18, max=16.11 mV/m
+
+THEMIS N approximate footpoints: n=2617, UT=0.02-23.98, |Vi| median=124.23, p95=237.53, max=421.11 km/s
+THEMIS S approximate footpoints: n=3307, UT=0.02-23.98, |Vi| median=188.27, p95=492.81, max=549.18 km/s
+
+Caveat: GUVI is a daily gridded dayside O/N2 product. RBSP uses MagEphem geographic footpoints. THEMIS footpoints are approximate centered-dipole inverse mapping from GSM-derived MLT/footpoint latitude.

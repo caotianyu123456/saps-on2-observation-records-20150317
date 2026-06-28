@@ -1,0 +1,7 @@
+event_id,event_date,storm_start_ut,storm_end_ut,min_symh_or_dst,time_min_symh_or_dst,max_ae_or_kp,storm_phase_tags,has_guvi,has_dmsp_ssies,has_superdarn,has_ssusi,has_gold_future_branch,priority_level,notes
+available_20150316,2015-03-16,2015-03-16T00:00:00,2015-03-17T00:00:00,,,,A_local_smoke,True,False,False,False,False,data_acquisition_needed,local St. Patrick smoke-test group
+available_20150317,2015-03-17,2015-03-17T00:00:00,2015-03-18T00:00:00,,,,A_local_smoke,True,True,True,True,False,screen,local St. Patrick smoke-test group
+available_20150318,2015-03-18,2015-03-18T00:00:00,2015-03-19T00:00:00,,,,A_local_smoke,True,True,True,True,False,screen,local St. Patrick smoke-test group
+validation_20140219,2014-02-19,2014-02-19T00:00:00,2014-02-20T00:00:00,,,,B_thesis_validation,False,False,False,False,False,data_acquisition_needed,Zhang-thesis SuperDARN SAPS validation case
+validation_20111025,2011-10-25,2011-10-25T00:00:00,2011-10-26T00:00:00,,,,B_thesis_validation,False,False,False,False,False,data_acquisition_needed,Zhang-thesis SuperDARN SAPS validation case
+validation_20130630,2013-06-30,2013-06-30T00:00:00,2013-07-01T00:00:00,,,,B_thesis_validation,False,False,False,False,False,data_acquisition_needed,Zhang-thesis SuperDARN SAPS validation case

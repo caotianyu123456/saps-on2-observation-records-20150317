@@ -1,0 +1,31 @@
+event_date,data_group,local_inventory_rows,public_note
+2011-10-25,dmsp_ssies,1,placeholder/missing-status row; full local paths retained only in local workspace
+2011-10-25,guvi_on2,1,placeholder/missing-status row; full local paths retained only in local workspace
+2011-10-25,indices,1,placeholder/missing-status row; full local paths retained only in local workspace
+2011-10-25,ssusi,1,placeholder/missing-status row; full local paths retained only in local workspace
+2011-10-25,superdarn,1,placeholder/missing-status row; full local paths retained only in local workspace
+2013-06-30,dmsp_ssies,1,placeholder/missing-status row; full local paths retained only in local workspace
+2013-06-30,guvi_on2,1,placeholder/missing-status row; full local paths retained only in local workspace
+2013-06-30,indices,1,placeholder/missing-status row; full local paths retained only in local workspace
+2013-06-30,ssusi,1,placeholder/missing-status row; full local paths retained only in local workspace
+2013-06-30,superdarn,1,placeholder/missing-status row; full local paths retained only in local workspace
+2014-02-19,dmsp_ssies,1,placeholder/missing-status row; full local paths retained only in local workspace
+2014-02-19,guvi_on2,1,placeholder/missing-status row; full local paths retained only in local workspace
+2014-02-19,indices,1,placeholder/missing-status row; full local paths retained only in local workspace
+2014-02-19,ssusi,1,placeholder/missing-status row; full local paths retained only in local workspace
+2014-02-19,superdarn,1,placeholder/missing-status row; full local paths retained only in local workspace
+2015-03-16,dmsp_ssies,5,local inventory rows; full local paths retained only in local workspace
+2015-03-16,guvi_on2,2,local inventory rows; full local paths retained only in local workspace
+2015-03-16,indices,1,local inventory rows; full local paths retained only in local workspace
+2015-03-16,ssusi,51,local inventory rows; full local paths retained only in local workspace
+2015-03-16,superdarn,25,local inventory rows; full local paths retained only in local workspace
+2015-03-17,dmsp_ssies,10,local inventory rows; full local paths retained only in local workspace
+2015-03-17,guvi_on2,3,local inventory rows; full local paths retained only in local workspace
+2015-03-17,indices,1,local inventory rows; full local paths retained only in local workspace
+2015-03-17,ssusi,99,local inventory rows; full local paths retained only in local workspace
+2015-03-17,superdarn,38,local inventory rows; full local paths retained only in local workspace
+2015-03-18,dmsp_ssies,10,local inventory rows; full local paths retained only in local workspace
+2015-03-18,guvi_on2,2,local inventory rows; full local paths retained only in local workspace
+2015-03-18,indices,1,local inventory rows; full local paths retained only in local workspace
+2015-03-18,ssusi,99,local inventory rows; full local paths retained only in local workspace
+2015-03-18,superdarn,38,local inventory rows; full local paths retained only in local workspace

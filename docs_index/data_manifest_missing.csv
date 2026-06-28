@@ -3,7 +3,6 @@ available_20150316,2015-03-16,guvi_on2,TIMED/GUVI L3 O/N2,Missing required day(s
 available_20150316,2015-03-16,dmsp_ssies,DMSP SSIES,Missing required day(s): 2015-03-15;2015-03-16,high,DMSP SSIES/SSJ via CEDAR Madrigal or local DMSP archive; likely manual/authenticated retrieval.,False,True
 available_20150316,2015-03-16,superdarn,SuperDARN map/fit/grid or quick-look,Missing required day(s): 2015-03-15;2015-03-16,medium,SuperDARN map/fit/grid via SuperDARN data services/RST or quick-look map archive.,False,False
 available_20150316,2015-03-16,ssusi,DMSP SSUSI,Missing required day(s): 2015-03-15;2015-03-16,medium,DMSP SSUSI EDR/SDR archive; verify JHU/APL/SSUSI access and product type.,False,False
-available_20150316,2015-03-16,indices,OMNI/SYM-H/AE/Dst/Kp,Missing required day(s): 2015-03-15,high,"OMNIWeb, WDC Kyoto Dst, SYM-H/AE/AL, GFZ Kp.",False,True
 available_20150317,2015-03-17,dmsp_ssies,DMSP SSIES,Missing required day(s): 2015-03-16,high,DMSP SSIES/SSJ via CEDAR Madrigal or local DMSP archive; likely manual/authenticated retrieval.,False,True
 available_20150317,2015-03-17,superdarn,SuperDARN map/fit/grid or quick-look,Missing required day(s): 2015-03-16,medium,SuperDARN map/fit/grid via SuperDARN data services/RST or quick-look map archive.,False,False
 available_20150317,2015-03-17,ssusi,DMSP SSUSI,Missing required day(s): 2015-03-16,medium,DMSP SSUSI EDR/SDR archive; verify JHU/APL/SSUSI access and product type.,False,False
@@ -11,19 +10,15 @@ available_20150318,2015-03-18,guvi_on2,TIMED/GUVI L3 O/N2,Missing required day(s
 available_20150318,2015-03-18,dmsp_ssies,DMSP SSIES,Missing required day(s): 2015-03-19,high,DMSP SSIES/SSJ via CEDAR Madrigal or local DMSP archive; likely manual/authenticated retrieval.,False,True
 available_20150318,2015-03-18,superdarn,SuperDARN map/fit/grid or quick-look,Missing required day(s): 2015-03-19,medium,SuperDARN map/fit/grid via SuperDARN data services/RST or quick-look map archive.,False,False
 available_20150318,2015-03-18,ssusi,DMSP SSUSI,Missing required day(s): 2015-03-19,medium,DMSP SSUSI EDR/SDR archive; verify JHU/APL/SSUSI access and product type.,False,False
-available_20150318,2015-03-18,indices,OMNI/SYM-H/AE/Dst/Kp,Missing required day(s): 2015-03-19,high,"OMNIWeb, WDC Kyoto Dst, SYM-H/AE/AL, GFZ Kp.",False,True
 validation_20140219,2014-02-19,guvi_on2,TIMED/GUVI L3 O/N2,Missing required day(s): 2014-02-18;2014-02-19;2014-02-20,high,TIMED/GUVI L3 O/N2 archive; verify NASA/SPDF or GUVI data service access.,False,True
 validation_20140219,2014-02-19,dmsp_ssies,DMSP SSIES,Missing required day(s): 2014-02-18;2014-02-19;2014-02-20,high,DMSP SSIES/SSJ via CEDAR Madrigal or local DMSP archive; likely manual/authenticated retrieval.,False,True
 validation_20140219,2014-02-19,superdarn,SuperDARN map/fit/grid or quick-look,Missing required day(s): 2014-02-18;2014-02-19;2014-02-20,medium,SuperDARN map/fit/grid via SuperDARN data services/RST or quick-look map archive.,False,False
 validation_20140219,2014-02-19,ssusi,DMSP SSUSI,Missing required day(s): 2014-02-18;2014-02-19;2014-02-20,medium,DMSP SSUSI EDR/SDR archive; verify JHU/APL/SSUSI access and product type.,False,False
-validation_20140219,2014-02-19,indices,OMNI/SYM-H/AE/Dst/Kp,Missing required day(s): 2014-02-18;2014-02-19;2014-02-20,high,"OMNIWeb, WDC Kyoto Dst, SYM-H/AE/AL, GFZ Kp.",False,True
 validation_20111025,2011-10-25,guvi_on2,TIMED/GUVI L3 O/N2,Missing required day(s): 2011-10-24;2011-10-25;2011-10-26,high,TIMED/GUVI L3 O/N2 archive; verify NASA/SPDF or GUVI data service access.,False,True
 validation_20111025,2011-10-25,dmsp_ssies,DMSP SSIES,Missing required day(s): 2011-10-24;2011-10-25;2011-10-26,high,DMSP SSIES/SSJ via CEDAR Madrigal or local DMSP archive; likely manual/authenticated retrieval.,False,True
 validation_20111025,2011-10-25,superdarn,SuperDARN map/fit/grid or quick-look,Missing required day(s): 2011-10-24;2011-10-25;2011-10-26,medium,SuperDARN map/fit/grid via SuperDARN data services/RST or quick-look map archive.,False,False
 validation_20111025,2011-10-25,ssusi,DMSP SSUSI,Missing required day(s): 2011-10-24;2011-10-25;2011-10-26,medium,DMSP SSUSI EDR/SDR archive; verify JHU/APL/SSUSI access and product type.,False,False
-validation_20111025,2011-10-25,indices,OMNI/SYM-H/AE/Dst/Kp,Missing required day(s): 2011-10-24;2011-10-25;2011-10-26,high,"OMNIWeb, WDC Kyoto Dst, SYM-H/AE/AL, GFZ Kp.",False,True
 validation_20130630,2013-06-30,guvi_on2,TIMED/GUVI L3 O/N2,Missing required day(s): 2013-06-29;2013-06-30;2013-07-01,high,TIMED/GUVI L3 O/N2 archive; verify NASA/SPDF or GUVI data service access.,False,True
 validation_20130630,2013-06-30,dmsp_ssies,DMSP SSIES,Missing required day(s): 2013-06-29;2013-06-30;2013-07-01,high,DMSP SSIES/SSJ via CEDAR Madrigal or local DMSP archive; likely manual/authenticated retrieval.,False,True
 validation_20130630,2013-06-30,superdarn,SuperDARN map/fit/grid or quick-look,Missing required day(s): 2013-06-29;2013-06-30;2013-07-01,medium,SuperDARN map/fit/grid via SuperDARN data services/RST or quick-look map archive.,False,False
 validation_20130630,2013-06-30,ssusi,DMSP SSUSI,Missing required day(s): 2013-06-29;2013-06-30;2013-07-01,medium,DMSP SSUSI EDR/SDR archive; verify JHU/APL/SSUSI access and product type.,False,False
-validation_20130630,2013-06-30,indices,OMNI/SYM-H/AE/Dst/Kp,Missing required day(s): 2013-06-29;2013-06-30;2013-07-01,high,"OMNIWeb, WDC Kyoto Dst, SYM-H/AE/AL, GFZ Kp.",False,True

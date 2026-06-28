@@ -43,6 +43,7 @@ This update implements the data-acquisition layer requested by the newest plan. 
 | --- | ---: | --- |
 | `docs_index/data_manifest_required.csv` | 30 | Required data by event and data group |
 | `docs_index/data_manifest_local.csv` | 400 | Local file inventory across the configured windows |
+| `docs_index/data_manifest_local_public_summary.csv` | 30 | Public aggregate summary of local inventory; full absolute paths retained locally |
 | `docs_index/data_manifest_missing.csv` | 28 | Structured missing-data rows |
 | `docs_index/download_queue_guvi.csv` | 5 | GUVI O/N2 download queue |
 | `docs_index/download_queue_dmsp.csv` | 6 | DMSP SSIES download queue |

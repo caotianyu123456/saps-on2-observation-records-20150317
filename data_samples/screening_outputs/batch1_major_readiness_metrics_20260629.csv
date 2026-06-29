@@ -1,0 +1,14 @@
+metric,value,interpretation,last_run_utc
+N_batch1_major_event_rows,129,Batch-1 rows selected by min(Dst) <= -100 nT.,2026-06-29T10:35:38+00:00
+N_batch1_storm_groups,22,Unique storm groups in Batch-1.,2026-06-29T10:35:38+00:00
+N_batch1_with_GUVI,0,No Batch-1-wide GUVI instrument acquisition has been verified yet; queues exist.,2026-06-29T10:35:38+00:00
+N_batch1_with_DMSP,0,No Batch-1-wide DMSP instrument acquisition has been verified yet; queues exist.,2026-06-29T10:35:38+00:00
+N_batch1_with_SuperDARN,0,No Batch-1-wide quantitative SuperDARN acquisition has been verified yet; queues exist.,2026-06-29T10:35:38+00:00
+N_batch1_science_ready,0,Batch-1 science matching is blocked until instrument data are acquired and normalized.,2026-06-29T10:35:38+00:00
+N_batch1_SAPS_ON2_matches,0,No Batch-1 SAPS/O/N2 matching run has been executed.,2026-06-29T10:35:38+00:00
+N_batch1_GUVI_queue_rows,129,Batch-1 GUVI download queue rows.,2026-06-29T10:35:38+00:00
+N_batch1_DMSP_queue_rows,129,Batch-1 DMSP download queue rows.,2026-06-29T10:35:38+00:00
+N_batch1_SuperDARN_queue_rows,129,Batch-1 SuperDARN download queue rows.,2026-06-29T10:35:38+00:00
+N_batch1_SSUSI_queue_rows,129,Batch-1 SSUSI download queue rows.,2026-06-29T10:35:38+00:00
+N_batch1_indices_queue_rows,129,Batch-1 indices queue/status rows.,2026-06-29T10:35:38+00:00
+N_seed_smoke_test_matches_available_for_reference,26,"Existing 2015 smoke-test recommended match rows, not Batch-1 statistics.",2026-06-29T10:35:38+00:00

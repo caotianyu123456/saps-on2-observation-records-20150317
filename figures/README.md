@@ -2,6 +2,12 @@
 
 The curated export includes a subset of figures that document the observational screening chain.
 
+## Current remote snapshot
+
+The figures actually included in this repository are under [`progress_snapshot_20260908/`](progress_snapshot_20260908/): five tight DMSP–GUVI candidate-audit pages and one independent F16 SSUSI proxy figure. Their interpretation limits are documented in that directory's README and in the current progress report.
+
+The filenames listed below are a historical index of the broader local archive; they are not all stored in this lightweight GitHub repository.
+
 ## GUVI O/N2 and DMSP
 
 - `guvi_on2_20150317_saps_context.png`

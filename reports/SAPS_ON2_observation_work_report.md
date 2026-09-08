@@ -1,5 +1,7 @@
 # SAPS 调制 O/N2 的观测工作整理报告
 
+> **历史状态说明（2026-09-08）：** 本文记录的是2026年6月的宽时间窗探索阶段，保留用于追踪工作演进。当前项目状态、0.5 h tight-window结果、SSUSI归一化proxy和V3科学门控请以 [`SAPS_ON2_CURRENT_PROGRESS_20260908.md`](SAPS_ON2_CURRENT_PROGRESS_20260908.md) 为准。本文中的2–4 h窗口指标不得与后续tight-window样本混合，也不代表当前科学结论。
+
 整理时间：2026-06-21  
 工作目录：`C:\Users\Dell\Desktop\SAPS SAR arcs`
 

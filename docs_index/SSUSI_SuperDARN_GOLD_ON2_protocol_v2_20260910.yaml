@@ -1,0 +1,420 @@
+protocol_id: SSUSI_SuperDARN_GOLD_ON2_v2_20260910
+status: proposed_for_outcome_blinded_validation_not_executed
+replaces_for_new_branch: SAPS_GUVI_ON2_screening_v1_20260908
+legacy_protocol_retained: true
+critical_notes:
+- This is an analysis specification and parameter template, NOT a functioning detector or a computed event
+  catalogue.
+- Published rules, official product constraints and project operating thresholds are separate.
+- Validate operating thresholds using raw metadata, independent labels and coverage, blind to the ON2
+  effect direction.
+- Freeze a version before confirmatory statistics. Never optimize thresholds for a depletion or significant
+  p value.
+- Neither no radar echo nor lack of valid ON2 is a scientific non-response.
+- SSUSI optical boundary and SSJ b1e are not interchangeable. Validate the target boundary definition.
+scope:
+  candidate_start: '2019-01-01'
+  candidate_end: '2024-12-31'
+  external_validation_years:
+  - 2025
+  region: Northern Hemisphere North-American radar / GOLD DAY overlap; not global SAPS
+  initial_radars:
+  - bks
+  - wal
+  - fhe
+  - fhw
+  - cve
+  - cvw
+  search_abs_mlat_deg:
+  - 45
+  - 80
+  search_mlt_half_open:
+  - 12
+  - 24
+  report_mlt_strata:
+    afternoon_extension:
+    - 12
+    - 15
+    dusk_premidnight:
+    - 15
+    - 24
+  cohort_selection: coverage-first archive; storm-time primary (min Dst <= -50 nT); nonstorm branch separate
+  storm_windows: catalogue onset-24h to minimum+72h; merge overlaps; freeze catalogue/version before response
+    analysis
+  primary_storm_index: Dst
+  storm_threshold_nt: -50
+  do_not_apply_legacy_00_12_UT_filter: true
+  cadence_strata: actual local ON2 scan intervals, not just year labels
+  catalogue_not_final_until_coverage_audited: true
+provenance:
+  required:
+  - source_file
+  - file_hash
+  - download_time
+  - product_version
+  - native_variable_mapping
+  - processing_commit
+  - protocol_id
+  native_quality_flags_preserved: true
+  all_times_UTC: true
+  keep_native_footprints_and_times: true
+  coordinates: document product-specific reference altitude; map with common magnetic convention; retain
+    geographic footprints
+  do_not_blindly_assign_all_products_300km: true
+boundary:
+  primary_instrument: DMSP SSUSI EDR-AURORA measured local precipitation/auroral structure
+  independent_validation: DMSP SSJ b1e and b2e stored separately; no required SSIES crossing for every
+    event
+  initial_algorithm: Ding2017-style local segmentation of quality-screened precipitating energy-flux images;
+    retain observed support mask
+  literature_segmentation_cluster_reference_erg_cm2_s: 0.2
+  reference_is_NOT_a_universal_pixel_LBHS_threshold: true
+  energy_flux_reference_sensitivity_erg_cm2_s:
+  - 0.1
+  - 0.2
+  - 0.4
+  dayglow_subtraction_and_flags_required: true
+  LBHS_1000R_universal_rule: false
+  main_local_age_max_min: 15
+  qualified_sensitivity_age_max_min: 30
+  spatiotemporal_error_envelope_required: true
+  main_rule: target lies equatorward of conservative calibrated boundary envelope, after geolocation uncertainty
+  maximum_equatorward_search_distance_deg: 10
+  observed_vs_interpolated_vs_model_only_separate: true
+  model_only_in_primary: false
+  fill_missing_sector_with_ellipse_as_observation: false
+  unknown_uncertainty_policy: candidate only; no fabricated constant uncertainty
+  boundary_validity_rechecked_at_radar_onset_and_each_gold_scan: true
+radar:
+  input: FITACF with processing version/hardware metadata; RAWACF subset for validation as needed
+  background_MAP_alone_sufficient: false
+  quality:
+    ground_scatter_exclude: true
+    power_min_db: 3
+    validate_F_region_and_range_geolocation: true
+    candidate_fit_abs_LOS_min_ms: 50
+    low_speed_control_branch_retains_valid_near_zero_LOS: true
+  time_bin_min: 4
+  vector_priority:
+  - locally_supported_multiradar_vector
+  - validated_local_Lshell_fit
+  Lshell_literature_starting_rules:
+    lat_bin_deg: 0.5
+    initial_MLT_span_h: 1
+    min_unique_azimuths: 5
+    min_azimuth_span_deg: 40
+    east_and_west_looking_support: true
+    expanded_span_h:
+    - 2
+    - 3
+    expanded_span_or_neighbor_direction_in_primary_local_map: false
+    fit_uncertainty_residuals_and_geometry_recorded: true
+  effective_resolution_is_actual_fit_support: true
+  main_direction_max_deviation_from_west_deg: 30
+  direction_sensitivity_max_deg: 45
+  main_velocity_snr_min: 3
+  missing_error_policy: requires independent validated error characterization; never assign zero
+  velocity_convention: magnetic west positive, documented Earth-fixed reference
+  main_velocity_summary: max of 3-consecutive-4min-bin running medians of the local coherent core speed;
+    store raw max/p95/current local speed separately
+  channel_envelope_ms: 200
+  primary_threshold_ms: 250
+  legacy_strong_subset_ms: 500
+  disjoint_bins_ms:
+  - - 250
+    - 400
+  - - 400
+    - 600
+  - - 600
+    - 1000
+  - - 1000
+    - null
+  threshold_sensitivity_ms:
+  - 200
+  - 250
+  - 400
+  - 500
+  - 600
+  channel_main_observed_duration_min: 20
+  min_connected_independently_supported_cells: 3
+  min_observed_MLT_extent_h: 1
+  max_gap_min: 8
+  min_velocity_coverage_fraction: 0.8
+  gap_counts_as_zero_velocity: false
+  short_narrow_or_unresolved_channels: retain separate; not physical non-detection
+  density_trough_or_temperature_enhancement_required: false
+local_clock:
+  local_episode_required: true
+  onset_baseline_velocity_upper_ms: 200
+  pre_onset_observed_min: 20
+  onset_requires_two_successive_4min_bins_above_250_ms: true
+  onset_interval: last verified low-flow to first confirmed threshold crossing; verification includes
+    independent boundary
+  max_onset_bracket_for_timing_min: 8
+  first_echo_is_onset: false
+  separate_mechanisms:
+  - local_onset
+  - enhancement_of_existing_flow
+  - channel_migration_into_ROI
+  - left_censored_first_detection
+  new_episode_requires_verified_low_flow_min: 20
+  parent_track_id_and_storm_id_required: true
+  unknown_boundary_or_velocity_gap_does_not_define_end: true
+  response_followup_on_new_driving: mark recurrent forcing; stop single-pulse attribution, keep continuous
+    observations
+gold:
+  product: L2 ON2 official column ratio
+  version_checked: v04r02
+  checked_date: '2026-09-10'
+  main_scan_and_pixel_DQI: 0
+  parse_DQI_bit_definitions_by_product: true
+  main_sza_max_deg: 75
+  main_emission_angle_max_deg: 70
+  strict_sza_max_deg: 70
+  strict_emission_angle_max_deg: 60
+  official_algorithm_maxima_deg:
+    SZA: 80
+    emission: 75
+  native_PIXEL_TIME_required: true
+  random_systematic_model_uncertainties_saved: true
+  fill_uncertainty_equals_zero: false
+  relative_uncertainty_threshold_to_select_strong_responses: false
+  main_known_issue_policy: exclude affected date/UT pixels; GYM +/-10d excluded from clean primary, separate
+    audited sensitivity
+  quiet_reference_may_cross_GYM: false
+  official_auroral_mask_assumed_complete: false
+  native_ON2_resolution_at_nadir_km:
+  - 250
+  - 250
+  subpixel_interpolation_adds_independence: false
+  main_auroral_clearance: whole useful footprint outside conservative SSUSI boundary envelope; screen
+    raw emission context as well
+  initial_center_AEB_buffer_deg: 2
+  buffer_sensitivity_deg:
+  - 1
+  - 2
+  - 3
+  O_N2_proxy_mixed_into_official_results: false
+  ON2_absolute_low_value_filter: null
+  native_QC_has_potential_response_dependent_missingness: true
+spatial_temporal_match:
+  gold_radar_main_max_dt_min: 5
+  gold_radar_sensitivity_max_dt_min: 10
+  radar_average_halfwindow_min: 4
+  actual_pixel_time_not_daily_image_time: true
+  boundary_main_max_dt_min: 15
+  saps_footprint_overlap_fraction_main: 0.5
+  saps_footprint_overlap_fraction_strict: 0.7
+  unresolved_or_mixed_flag_required: true
+  footprint_supported_radar_fraction_main: 0.8
+  response_roi: fixed geographic GOLD-native footprint or fixed area group chosen using radar/geometry
+    only
+  moving_channel_relative_profile: separate spatial diagnostic, not fixed-location temporal response
+  high_low_high: requires independently supported clean inside and both flanks; not inclusion criterion
+  do_not_advect_neutrals_using_ion_drift: true
+  multi-hour_lag_is_not_multi-hour_matching_tolerance: true
+controls:
+  type: same-scan or near-scan matched low-flow regions with comparable geometry and storm context
+  number_target:
+  - 2
+  - 5
+  valid_low_flow_max_ms: 200
+  no_echo_is_control: false
+  initial_calipers:
+    abs_dt_min: 10
+    abs_MLT_h: 0.5
+    abs_MLAT_deg: 1
+    abs_SZA_deg: 5
+    abs_emission_deg: 5
+  AEB_relative_distance_balance_required: true
+  weights_and_ROI_frozen_before_post_ON2_inspection: true
+  on_control_exposure: censor affected comparisons; do not select replacements by post-ON2 values
+  failed_control_match: retain in colocation set, exclude controlled-effect set
+  spatial_neighbor_controls_are_not_automatically_exchangeable: true
+  neutral_wind_and_density_not_automatically_regressed_out_as_confounders: true
+  pre_window_min:
+  - -180
+  - -20
+  min_pre_scans: 2
+  min_pre_span_min: 30
+  max_last_pre_age_min: 60
+  quiet_days: secondary; match UT/pixel/season/SZA; verify geomagnetic conditions and calibration regime
+outcomes:
+  spatial_contrast: A(t)=mean_area(log(R_target))-sum(w_j*mean_area(log(R_control_j)))
+  temporal_increment: D(t)=A(t)-median(A_pre)
+  relative_increment: exp(D(t))-1
+  primary_estimand: event-level paired relative increment at actual observed times in 0-3h; not a continuous-time
+    average
+  prespecified_lag_bins_h:
+  - - 0
+    - 1
+  - - 1
+    - 3
+  - - 3
+    - 6
+  one_summary_per_local_event_per_lag_bin: true
+  retain_preexisting_absolute_anomaly: true
+  search_window_h:
+  - -3
+  - 6
+  extend_if_long_episode: through observed end+3h, labelled as secondary
+  whole_event_future_peak_used_as_causal_predictor: false
+  optional_velocity_exposure: integral(Vw^2 dt) over observed prior intervals, with coverage; kinematic
+    exposure only, NOT Joule heating
+classification:
+  preexisting_flag:
+  - 'yes'
+  - 'no'
+  - unknown
+  time_class:
+  - early_0_1h
+  - lagged_1_3h
+  - late_3_6h
+  - coexistence_only
+  - interval_ambiguous
+  - no_resolved_transition
+  direction:
+  - depletion
+  - enhancement
+  - bounded_within_equivalence_margin
+  - uncertain
+  equivalence_margin_fraction: 0.1
+  confidence_level: 0.95
+  depletion_rule: upper confidence bound of relative increment < -0.10
+  enhancement_rule: lower confidence bound > +0.10
+  near_zero_rule: entire confidence interval within [-0.10,+0.10]
+  not_significant_equals_no_response: false
+  first_detectable_transition_is_physical_onset: false
+  two_native_scan_confirmation: for confirmed transition if follow-up exists; one-scan detections retained
+    as provisional
+  multiple_scan_false_alarms: calibrate with placebo onsets / simultaneous bands; do not use min value
+    as primary endpoint
+  lag_interval: '[response_left-onset_right,response_right-onset_left]'
+  time_bin_only_if_full_interval_contained: true
+  baseline_response_day_end_handling: left/right/interval censoring stored explicitly; missing late day
+    is not recovery
+  persistence:
+  - during_flow
+  - persists_after_end
+  - recovered
+  - right_censored_or_unknown
+statistics:
+  population: observable northern North-American dayglow SAPS, conditional on coverage and QC
+  report_counts:
+  - coverage_cell_time
+  - parent_SAPS_tracks
+  - local_episodes
+  - paired_episodes
+  - controlled_episodes
+  - spatial_profiles
+  - timing_episodes
+  - independent_storms
+  spatial_and_timing_cohorts_are_not_necessarily_nested: true
+  main_cluster: storm_id; quiet branch uses linked episode/day blocks
+  bootstrap_replicates: 2000
+  main_event_weight: equal event contribution within each lag bin
+  robustness:
+  - equal_storm_weight
+  - leave_one_storm_out
+  - actual_cadence_strata
+  - degrade_high_cadence_to_low_cadence_sampling_phases
+  interval_censoring_method: optional Turnbull after checking observation/censoring assumptions; otherwise
+    interval summaries and bounds
+  unknown_precision_category_kept_in_detectable_response_denominator: true
+  unconditional_physical_response_fraction_from_selected_sample: false
+  many_speed_lag_subgroup_tests: exploratory with multiplicity accounting
+  primary_continuous_effect_not_only_class_counts: true
+pilot_and_release:
+  benchmark_target_n:
+  - 3
+  - 5
+  outcome_blinded_windows_target_n: 20
+  blind_strata:
+  - season
+  - storm_level
+  - actual_GOLD_cadence
+  - MLT
+  manual_audit: two reviewers, radar/SSUSI only for detector tuning; independent holdout and false negatives
+    retained
+  invalid_synthetic_unit_tests:
+  - missing_echo_not_no_flow
+  - missing_boundary_not_empirical_pass
+  - one_GOLD_pixel_not_three
+  - lag_interval_crossing_1h_not_forced
+  - day_end_not_recovery
+  - same_scan_duplicate_not_independent
+  freeze_before_confirmatory_outcomes: true
+  status_counts_not_predicted: true
+  release_by_evidence_not_significance: true
+proposed_output_tables:
+- source_manifest
+- observation_opportunity
+- ssusi_local_boundaries
+- superdarn_local_vectors
+- saps_parent_tracks
+- saps_local_episodes
+- gold_native_pixels
+- roi_control_sets
+- paired_timeseries
+- response_intervals
+- classification_and_gates
+- protocol_sensitivity_results
+failure_codes:
+- NO_FILE
+- BAD_NATIVE_QC
+- NO_BOUNDARY_SUPPORT
+- BOUNDARY_TYPE_UNCERTAIN
+- NO_VECTOR_GEOMETRY
+- NO_RADAR_ECHO
+- NO_GOLD_DAYGLOW
+- FOOTPRINT_MIXED
+- NO_VALID_CONTROL
+- ONSET_LEFT_CENSORED
+- RESPONSE_INTERVAL_AMBIGUOUS
+- FOLLOWUP_RIGHT_CENSORED
+references:
+  Ding2017:
+    doi: 10.1002/2016JA023295
+    use: SSUSI/GUVI auroral-boundary extraction; image boundary is not identical to SSJ b1e.
+  Zhang2021:
+    doi: 10.1029/2021JA029340
+    use: SSUSI-constrained SuperDARN SAPS tracking; merged and inferred velocity distinction; 4-min processing.
+  Kunduri2017:
+    doi: 10.1002/2017JA024131
+    use: SAPS statistics with explicit observation-opportunity denominator; historical UT restriction
+      is not copied.
+  Kunduri2018:
+    doi: 10.1029/2018JA025690
+    use: L-shell fitting, geometry support, LOS quality filters; distinguish inferred from measured vectors.
+  He2017:
+    doi: 10.1002/2017GL075449
+    use: 250 m/s peak and electron-boundary criterion in a DMSP study; transfer to radar requires validation.
+  Wang2012:
+    doi: 10.1029/2012JA017656
+    use: Physical motivation for hours-scale dynamics; 3-h imposed forcing is NOT a measured column-ON2
+      response time.
+  Correira2021:
+    doi: 10.1029/2021JA029517
+    use: GOLD column ratio retrieval, observational operator, uncertainty and contamination.
+  Turnbull1976:
+    doi: 10.1111/j.2517-6161.1976.tb01597.x
+    use: Interval-censoring method; assess observation/censoring assumptions before inference.
+  GOLD_Guide:
+    url: https://gold.cs.ucf.edu/wp-content/documentation/GOLD_Public_Science_Data_Products_Guide_Rev5.2.pdf
+    version: '5.2'
+    use: ON2 fields, DQI, random/systematic/model uncertainty and spatial binning.
+  GOLD_Notes:
+    url: https://gold.cs.ucf.edu/wp-content/documentation/GOLD_Release_Notes_Rev5.11.pdf
+    version: '5.11'
+    use: Algorithm limits, contamination, cadence and instrument issues.
+  GOLD_Issues:
+    url: https://gold.cs.ucf.edu/wp-content/documentation/GOLD_Data_Issues_Table_Rev2.2.pdf
+    version: '2.2'
+    use: Date/UT-specific review masks; reconcile conservatively with detailed release notes.
+  GOLD_Versions:
+    url: https://gold.cs.ucf.edu/data/current-data-product-versions/
+    checked: '2026-09-10'
+    use: L2 ON2 v04r02 current at check time.
+  SD_access:
+    url: https://superdarn.ca/data-access
+    use: FITACF and raw-data access; algorithms and hardware provenance.

@@ -2,6 +2,21 @@
 
 This repository is a curated record of the observational work testing whether SAPS-related subauroral ion drifts are associated with thermospheric composition disturbances during the March 2015 St. Patrick storm, and of the workflow prepared for a broader 2011–2015 study.
 
+## New execution branch — SSUSI / SuperDARN / GOLD (2026-09-10)
+
+**Codex should start here:** [Execution handoff and phased task list](docs_index/CODEX_START_HERE_SSUSI_SUPERDARN_GOLD_20260910.md).
+
+Supporting specifications:
+
+- [Scientific execution plan V2](docs_index/SSUSI_SuperDARN_GOLD_ON2_execution_plan_v2_20260910.md)
+- [Parameter and rule template V2](docs_index/SSUSI_SuperDARN_GOLD_ON2_protocol_v2_20260910.yaml)
+
+The new observational design uses SSUSI to constrain the local auroral boundary, quantitative SuperDARN observations to identify and track equatorward westward-flow channels, and official GOLD column O/N2 to measure spatial contrasts and temporal changes. DMSP SSJ/SSIES is an independent-validation pathway, not a required in-situ crossing for every event.
+
+The candidate archive is 2019–2024 with 2025 reserved for a separate validation branch. The initial task is **P0–P2 only: audit actual code/data and methods, establish joint coverage, implement and test the required modules, and run a small real-data pilot**. Do not launch full-period confirmatory statistics or model simulations before the scientific gates and independent review are complete.
+
+These documents are **proposed specifications, not implemented software or new scientific results**. The historical 2015 evidence and June/July gate snapshots below are unchanged. Raw data, authentication details, and machine-specific paths must remain outside the public repository.
+
 ## Current status — 2026-09-08
 
 The strongest current result is an event-level Southern Hemisphere association within one storm:
@@ -15,6 +30,7 @@ These are **SAPS-like candidate associations**, not five confirmed or independen
 
 ## Read this first
 
+- [Codex execution entry for the new SSUSI–SuperDARN–GOLD pilot](docs_index/CODEX_START_HERE_SSUSI_SUPERDARN_GOLD_20260910.md)
 - [Current project progress and evidence status](reports/SAPS_ON2_CURRENT_PROGRESS_20260908.md)
 - [Evidence snapshot manifest](docs_index/progress_snapshot_manifest_20260908.csv)
 - [SSUSI proxy usability report](summaries/ssusi_on2_proxy_usability_report_20150317_f16.md)

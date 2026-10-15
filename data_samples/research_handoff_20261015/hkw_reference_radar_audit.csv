@@ -1,0 +1,9 @@
+case_id,role,station,channel,guvi_pass,guvi_points,status,fitted_gate_samples,q1g0_samples,diagnostic_quality_samples,diagnostic_records,diagnostic_median_los,abs_los_ge500_samples,strong_records,strong_scans,strong_beams,westward_compatible_samples,comparison
+HKW_5470_5480,event_day,hkw,1,GUVI_121649_N_20240511_5354_5631,11,actual_native_near_gate_audited,35,35,17,5,-196.80563,8,5,2,3,7,"No echo is missing measurement, not zero flow; same thresholds for both dates"
+HKW_5470_5480,pre_shock_reference,hkw,1,GUVI_121634_N_20240510_5384_5639,10,actual_native_near_gate_audited,16,14,7,4,-14.314363,5,3,1,3,2,"No echo is missing measurement, not zero flow; same thresholds for both dates"
+HKW_5483_5517,event_day,hkw,1,GUVI_121649_N_20240511_5354_5631,35,actual_native_near_gate_audited,133,132,91,15,-771.6055,65,12,4,4,63,"No echo is missing measurement, not zero flow; same thresholds for both dates"
+HKW_5483_5517,pre_shock_reference,hkw,1,GUVI_121634_N_20240510_5384_5639,34,actual_native_near_gate_audited,107,93,49,14,-13.675542,6,5,3,5,2,"No echo is missing measurement, not zero flow; same thresholds for both dates"
+JME_4671_4694,event_day,jme,0,GUVI_121648_N_20240511_4544_4818,24,actual_native_near_gate_audited,63,63,28,7,880.6077,25,7,2,4,25,"No echo is missing measurement, not zero flow; same thresholds for both dates"
+JME_4671_4694,event_day,lje,0,GUVI_121648_N_20240511_4544_4818,24,actual_native_near_gate_audited,108,108,46,11,844.8972,39,11,2,5,39,"No echo is missing measurement, not zero flow; same thresholds for both dates"
+JME_4671_4694,pre_shock_reference,jme,0,GUVI_121633_N_20240510_4567_4820,23,actual_native_near_gate_audited,0,0,0,0,,0,0,0,0,0,"No echo is missing measurement, not zero flow; same thresholds for both dates"
+JME_4671_4694,pre_shock_reference,lje,0,GUVI_121633_N_20240510_4567_4820,23,actual_native_near_gate_audited,0,0,0,0,,0,0,0,0,0,"No echo is missing measurement, not zero flow; same thresholds for both dates"

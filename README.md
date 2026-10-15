@@ -2,9 +2,21 @@
 
 This repository is a curated record of the observational work testing whether SAPS-related subauroral ion drifts are associated with thermospheric composition disturbances during the March 2015 St. Patrick storm, and of the workflow prepared for a broader 2011–2015 study.
 
-## New execution branch — SSUSI / SuperDARN / GOLD (2026-09-10)
+## Current research handoff — 2026-10-15
 
-**Codex should start here:** [Execution handoff and phased task list](docs_index/CODEX_START_HERE_SSUSI_SUPERDARN_GOLD_20260910.md).
+**Start here:** [SAPS–O/N2 statistics and joint-observation research handoff](reports/SAPS_ON2_RESEARCH_HANDOFF_20261015.md) (Chinese, with a ready-to-use discussion prompt).
+
+- [Statistical screening progress](reports/SAPS_ON2_STATISTICAL_PROGRESS_20261015.md): distinguishes the original 2011–2015 preparation, 2015 exploratory display windows, the later operational DMSP–SSUSI/GOLD sample, and bounded GUVI-first radar screening. These do not yet form a unified multi-storm effect estimate.
+- [Joint observations and the latest HKW locality assessment](reports/SAPS_ON2_JOINT_OBSERVATIONS_20261015.md): includes two figures and checks of radar-cell membership, reference geometry, and composition-background sensitivity.
+- [Small supporting evidence tables](data_samples/research_handoff_20261015/README.md).
+
+The latest HKW assessment cannot distinguish an additional local flow-associated column-O/N2 effect from the wider storm-time latitudinal/regional background with the existing coverage and uncertainties. This does **not** establish that SAPS has no effect. The priority is to assess identifiability and the value of targeted additional evidence before expanding the sample.
+
+These are curated progress records, not a new scientific rerun or publication of the complete local analysis workspace. The older records below remain available as historical evidence; their sample counts and acceptance levels must not be mixed with newer branches.
+
+## Historical execution design — SSUSI / SuperDARN / GOLD (2026-09-10)
+
+**September execution entry:** [Execution handoff and phased task list](docs_index/CODEX_START_HERE_SSUSI_SUPERDARN_GOLD_20260910.md).
 
 Supporting specifications:
 
@@ -17,9 +29,9 @@ The candidate archive is 2019–2024 with 2025 reserved for a separate validatio
 
 These documents are **proposed specifications, not implemented software or new scientific results**. The historical 2015 evidence and June/July gate snapshots below are unchanged. Raw data, authentication details, and machine-specific paths must remain outside the public repository.
 
-## Current status — 2026-09-08
+## Historical status — 2026-09-08
 
-The strongest current result is an event-level Southern Hemisphere association within one storm:
+As of that historical snapshot, the strongest result was an event-level Southern Hemisphere association within one storm:
 
 - the 0.5 h DMSP–GUVI screen contains 9 candidate windows;
 - 5 windows meet the plotting-level condition of strong horizontal drift and low GUVI O/N2;
@@ -28,18 +40,19 @@ The strongest current result is an event-level Southern Hemisphere association w
 
 These are **SAPS-like candidate associations**, not five confirmed or independent SAPS events. They come from one storm, are Southern Hemisphere only, and have not yet passed the full direction, orbit-geometry, persistence, morphology, auroral-boundary, control-sample, and quantitative-SuperDARN gates. The SSUSI value is a relative O/N2-sensitive radiance-ratio proxy, not an official column O/N2 retrieval.
 
-## Read this first
+## Reading index
 
-- [Codex execution entry for the new SSUSI–SuperDARN–GOLD pilot](docs_index/CODEX_START_HERE_SSUSI_SUPERDARN_GOLD_20260910.md)
-- [Current project progress and evidence status](reports/SAPS_ON2_CURRENT_PROGRESS_20260908.md)
+- [Latest research handoff, 2026-10-15](reports/SAPS_ON2_RESEARCH_HANDOFF_20261015.md)
+- [Historical September execution entry for the SSUSI–SuperDARN–GOLD pilot](docs_index/CODEX_START_HERE_SSUSI_SUPERDARN_GOLD_20260910.md)
+- [Historical project progress and evidence status, September 8](reports/SAPS_ON2_CURRENT_PROGRESS_20260908.md)
 - [Evidence snapshot manifest](docs_index/progress_snapshot_manifest_20260908.csv)
 - [SSUSI proxy usability report](summaries/ssusi_on2_proxy_usability_report_20150317_f16.md)
 - [Normalizer V3 gate decision](summaries/screening_outputs/normalizer_v3_gate_decision_table.md)
 - [Validation-event instrument blockers](summaries/screening_outputs/validation_event_instrument_blocker_resolution.md)
 
-## Evidence boundary
+## Historical 2015 evidence boundary
 
-The current repository supports this statement:
+The 2015 record supports this statement:
 
 > During the 2015 St. Patrick storm, Southern Hemisphere observations show repeated close space-time associations between strong horizontal ion drift and relatively low GUVI O/N2; one separate F16 crossing also has a near-simultaneous, AEB-filtered SSUSI relative O/N2-sensitive proxy decrease.
 
@@ -52,7 +65,9 @@ This repository currently reaches only the observation-constraint layer.
 ## Repository contents
 
 - `reports/`: current and historical work reports.
-- `data_samples/progress_snapshot_20260908/`: public-safe small tables supporting the current report.
+- `data_samples/research_handoff_20261015/`: small evidence tables supporting the October research handoff.
+- `figures/research_handoff_20261015/`: the latest HKW composition-background and radar-coverage figures.
+- `data_samples/progress_snapshot_20260908/`: public-safe small tables supporting the historical September report.
 - `figures/progress_snapshot_20260908/`: representative tight DMSP–GUVI pages and the flagship SSUSI proxy figure.
 - `summaries/`: generated summaries and gate decisions.
 - `scripts/`: screening and plotting scripts from the curated export.
@@ -63,3 +78,4 @@ Large raw satellite files, caches, repeated intermediate figures, and unpublishe
 ## Historical note
 
 The earlier [June 2026 observation work report](reports/SAPS_ON2_observation_work_report.md) is retained as a historical record of the broad-window exploratory stage. Its 2–4 h window metrics must not be mixed with the later 0.5 h tight-window results or treated as the current scientific conclusion.
+
